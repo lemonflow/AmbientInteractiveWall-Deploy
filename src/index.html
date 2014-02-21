@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>three.js webgl - render-to-texture</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        
+        <div id="container2"></div>           
+        <div id="container"></div>   
+        
+        <div id="menu" class="debug">
+            <button id="1" >1</button>
+            <button id="2">2</button>
+            <button id="3">3</button>
+            <button id="4">4</button>
+            <button id="5">5</button>
+            <button id="6">6</button>
+            <button id="7">7</button>
+            <button id="8">8</button>        
+            <button id="9">9</button>    
+            <div id="debugtxt">text</div>
+        </div>
+        
+        <video id="video" loop style="display:none">
+            <source src="assets/MBRDNA_lobby.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        </video>
+        
+        
+        <!--        <script src="./js/IOConnectorTUIO.js"></script>-->
+
+        <script src="js/lib/three/three.min.js"></script>
+        <script src="js/lib/three/loaders/OBJLoader.js"></script>
+        <script src="js/lib/three/controls/TrackballControls.js"/>
+        <script src="js/lib/three/Detector.js"></script>
+        <script src="js/lib/three/renderers/CSS3DRenderer.js"></script>
+        
+        <script src="js/lib/three/shaders/ConvolutionShader.js"></script>
+        <script src="js/lib/three/shaders/CopyShader.js"></script>
+        <script src="js/lib/three/postprocessing/EffectComposer.js"></script>
+        <script src="js/lib/three/postprocessing/RenderPass.js"></script>
+        <script src="js/lib/three/postprocessing/MaskPass.js"></script>
+        <script src="js/lib/three/postprocessing/BloomPass.js"></script>
+        <script src="js/lib/three/postprocessing/ShaderPass.js"></script>
+        
+        <script src="js/lib/tween.min.js"></script>
+        <!--        <script src="js/lib/Tuio.js"></script>-->
+        <!--        <script src="js/lib/peer.min.js"></script>-->
+        <script src="js/lib/shaderloader.min.js"></script> <!--https://github.com/codecruzer/webgl-shader-loader-js-->
+        <script src="js/lib/sockjs-0.3.min.js"></script>
+        <script src="js/lib/lemonflow.js"></script>
+        
+        
+        
+        
+        <script src="./js/old/TrackballControls.js"></script>
+        <script src="./js/old/CSS3DRenderer.js"></script>
+        
+        
+        <!-- for the lines demo -->
+        <script src="fonts/helvetiker_bold.typeface.js"></script>
+        
+        
+        <script data-src="../assets/shaders/line-vertex.js" data-name="particles" type="x-shader/x-vertex"></script>
+        <script data-src="../assets/shaders/line-fragment.js" data-name="particles" type="x-shader/x-fragment"></script>
+        
+        
+        <script type="x-shader/x-vertex" id="vs_lines">
+			uniform float amplitude;
+			attribute vec3 displacement;
+			attribute vec3 customColor;
+			varying vec3 vColor;
+
+			void main() {
+				vec3 newPosition = position + amplitude * displacement;
+				vColor = customColor;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+			}
+
+        </script>
+        
+        <script type="x-shader/x-fragment" id="fs_lines">
+			uniform vec3 color;
+			uniform float opacity;
+			varying vec3 vColor;
+			void main() {
+				gl_FragColor = vec4( vColor * color, opacity );
+			}
+        </script>
+        
+        
+        <script id="texture_vertex_simulation_shader" type="x-shader/x-vertex">
+                varying vec2 vUv;
+                void main() {
+                    vUv = vec2(uv.x, 1.0 - uv.y);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+                }
+        </script>
+        <script id="texture_fragment_simulation_shader" type="x-shader/x-fragment">
+                // simulation
+                varying vec2 vUv;
+                
+                uniform sampler2D tPositions;
+                uniform sampler2D tPositions2;
+                uniform float time;
+                uniform float delta;
+                uniform int implode;
+                uniform int home;
+                uniform float transition;
+            
+                uniform sampler2D photoTexture;
+                uniform vec2 photoDimensions;
+                uniform float fboWidth;
+                uniform int explosionType;
+            
+            
+                ==NOISE==
+            
+                float noiseMul = 0.1;
+                float offset = 0.5;
+                const float PI = 3.141592653589793;
+                const float PI_2 = 6.283185307179586;
+                float slowness = 4.0; // 1.0/delta; 
+                float width = 1024.0 / 4.0; // <== noise width
+                // if multiply by factor big, will be bigger
+            
+                float damping = 0.977; //force, the smaller the less movement
+            
+                /// Converts FBO dimensions -> Texture size
+                vec3 getInitialTexturePos(vec2 uvcoords, float fboWidth, vec2 textureDimension) {
+                    // Do a simple bilinear interpolation
+                    vec2 stretch = (0.5 - uvcoords ) * 1000.0 ;
+                    stretch.x *= textureDimension.x/textureDimension.y;
+                    return vec3(stretch, -300.0); // -200 -510.0
+                }
+            
+            
+                float exp_ease_out(float k) {
+                    // Clamp the edge,
+                    // Do a quadratic ease in
+                    // Do a exponential ease out
+            
+                    if (k>1.0) return 1.0;
+                    if ( ( k *= 2.0 ) < 1.0 ) return 0.5 * k * k;
+                    return 0.5 * ( - pow( 2.0, - 10.0 * ( k - 1.0 ) ) + 2.0 );
+                }
+            
+            
+                vec3 attractor(vec3 particle_pos, vec3 attractor_pos, float strength) {
+                    const float attractor_mass = 800.0;
+                    const float particle_mass = 50.05;
+            
+                    // vec from particle to target
+                    vec3 delta = attractor_pos - particle_pos;
+                    float dist_sq = delta.x * delta.x + delta.y * delta.y + delta.z * delta.z;
+            
+                    vec3 force = vec3(0);
+                    float radius_sq = attractor_mass * attractor_mass * 1.0;
+                    // applying limits
+                    const float inner_radius_sq = 1000.000001;
+                    if (strength<0.0 || dist_sq> inner_radius_sq && dist_sq<radius_sq) {
+                        force = attractor_mass * particle_mass * normalize(delta)  / dist_sq;
+                    }
+            
+                    force *= strength ;
+                    return force;
+                }
+            
+                vec3 sphere(vec2 uv) {
+                    float u = uv.x * PI;
+                    float v = uv.y * PI_2;
+                    
+                    float x = sin(u) * cos(v);
+                    float y = sin(u) * sin(v);
+                    float z = cos(u);
+            
+                    return vec3(x, y, z) * 300.0;
+                }
+            
+                vec3 cone(vec2 uv) {
+                    float u = uv.x * PI;
+                    float v = uv.y * PI_2;
+                    
+                    float x = u;
+                    float y = u * cos (v);
+                    float z = u * sin (v);
+                    
+                    return vec3(x, y, z) * 300.0;
+                }
+            
+            
+                vec3 supershape(vec2 uv) { //supershape1
+                    float u = uv.x * PI;
+                    float v = uv.y * PI_2;
+            
+                    float a = 1.0;
+                    float b = 1.0;
+                    float m = 12.0;
+                    float n1 = 5.5;
+                    float n2 = 6.7;
+                    float n3 = 48.7;
+            
+                    float r = pow(
+                        (pow(abs(cos(m*u/4.0)/a),n2) + pow(abs(sin(m*u/4.0)/b), n3)),
+                        -(1.0/n1));
+            
+                    float a2 = 1.0;
+                    float b2 = 1.0;
+                    float m2 = 12.0;
+                    float n12 = 5.0;
+                    float n22 = 6.0;
+                    float n32 = 48.0;
+            
+                    float r2 = pow(
+                        (pow(abs(cos(m2*u/4.0)/a2),n22) + pow(abs(sin(m2*u/4.0)/b2), n32)),
+                        -(1.0/n12));
+            
+                    float x = r * cos (u) * r2 * cos(v);
+                    float y = r * sin (u) * r2 * cos(v);
+                    float z = r2 * sin(v);
+            
+                    return vec3(x, y, z) * 150.0;
+                }
+            
+                void main() {
+                    vec4 pos = texture2D( tPositions, vUv );
+                    vec4 pos_prev = texture2D( tPositions2, vUv );
+            
+                    // derive velocity
+                    vec3 velocity =  pos_prev.xyz - pos.xyz;
+                    vec3 pos_new;
+            
+                    if ( home > 0 || explosionType > 2 ) {
+                        // HOME MODE
+                        if (explosionType==3) {
+                            pos_new = velocity * damping +  pos_prev.xyz ;
+                        } else if (explosionType==5) {
+                            pos_new = sphere(vUv);
+                        } else if (explosionType==6) {
+                            pos_new = cone(vUv);
+                        } else if (explosionType==7) {
+                            pos_new = supershape(vUv);
+                        }  else {
+                            pos_new = getInitialTexturePos( vUv, fboWidth, photoDimensions);
+                        }
+            
+                        if ( implode == 1 ) {
+                            pos_new  = pos_prev.xyz + (pos_new - pos_prev.xyz) * clamp(exp_ease_out(transition / 0.8), 0.0, 1.0);
+                        }
+            
+                    } else {
+                        // EXPLOSION MODE
+                        if ( explosionType == 0 ) {
+                            velocity.x += SimplexPerlin3D( vec3( pos_prev.x / width, pos_prev.y / width, time )  ) / slowness ; // 
+                            velocity.y += SimplexPerlin3D( vec3( pos_prev.x / width + offset, pos_prev.y / width + offset, time ) ) / slowness; 
+                            velocity.z += SimplexPerlin3D( vec3( pos_prev.x / width * 4.0 + 2.0 * offset, pos_prev.y / width * 4.0 + 2.0 * offset, time ) ) / slowness / 4.0;
+            
+                            // DAMPING
+                            velocity.xyz *= damping;
+            
+                        } else {
+            
+                            vec4 pixel_color = texture2D( photoTexture, vUv);
+            
+                            vec3 r_attractor_pos = vec3(-600.0, -200.0, -340.0);
+                            vec3 g_attractor_pos = vec3(-100.0, 400, -350.0);
+                            vec3 b_attractor_pos = vec3(400.0, -100.0, -300.0);
+                            
+                            float d = (explosionType == 2) ? -delta : delta;
+            
+                            velocity += attractor(pos_prev.xyz, r_attractor_pos, pixel_color.r * d);
+                            velocity += attractor(pos_prev.xyz, g_attractor_pos, pixel_color.g * d);
+                            velocity += attractor(pos_prev.xyz, b_attractor_pos, pixel_color.b * d);
+            
+                            // speed limit
+                            float speed_limit = 9.0 ;
+                            if (length(velocity) > speed_limit) {
+                                velocity = normalize(velocity) * speed_limit;
+                            }
+                        }
+                        pos_new = pos_prev.xyz + velocity;
+                    }
+            
+                    // Write new position out
+                    gl_FragColor = vec4(pos_new, 1.0);
+                }
+        </script>
+        <script type="x-shader/x-vertex" id="particles_vertex">
+
+	attribute float size;
+	attribute vec3 customColor;
+	attribute vec2 aPoints;
+	
+	uniform sampler2D position_texture;
+	uniform sampler2D color_texture; // photo's texture
+	uniform sampler2D next_color_texture;
+
+	varying vec3 vColor;
+
+	varying float vOpacity;
+
+	uniform vec2 photoDimensions;
+	uniform float fboWidth;
+	uniform float transition;
+	uniform int afterEffects;
+
+	==PHOTOSHOP==
+
+	const float fa = ( 4.0/9.0);
+	const float fb = (17.0/9.0);
+	const float fc = (22.0/9.0);
+
+	float s_curve(float x) {
+		// blinnWyvillCosineApproximation
+		float x2 = x*x;
+		float x4 = x2*x2;
+		float x6 = x4*x2;
+		return  fa*x6 - fb*x4 + fc*x2;
+	}
+
+
+	float inverse_s_curve(float x) {
+		return s_curve(2.0 * x - s_curve(x));
+	}
+
+
+	vec3 cross_process(vec3 color) {
+		return vec3(
+			s_curve(color.r),
+			s_curve(color.g),
+			inverse_s_curve(color.b)
+		);
+
+		// color.r = s_curve(color.r);
+		// color.g = s_curve(color.g);
+		// color.b = inverse_s_curve(color.b);
+	}
+
+	void main() {
+
+		vec4 pos = vec4( texture2D(position_texture, aPoints).xyz, 1.0 );
+
+		vOpacity = 1.0;
+		vec2 color_lookup = vec2(1.0 - aPoints.x, aPoints.y);
+
+		vec3 particle_color = texture2D(color_texture, color_lookup).xyz;
+		vec3 next_particle_color = texture2D(next_color_texture, color_lookup).xyz;
+
+		if (afterEffects==1) {
+			particle_color = cross_process( particle_color );
+			next_particle_color = cross_process( next_particle_color );
+		} else if (afterEffects==2) {
+			particle_color = Desaturate(particle_color, 0.8).xyz;
+			next_particle_color = Desaturate( next_particle_color, 0.2 ).xyz;
+		} else if (afterEffects==3) {
+
+		}
+		
+		particle_color = (1.0 - transition) * particle_color + transition * next_particle_color;
+
+		vColor = particle_color;
+		
+		vec4 mvPosition = modelViewMatrix * pos;
+
+
+		gl_PointSize = 30.0 * 512.0 / fboWidth * 200.0 / length( mvPosition.xyz );
+		gl_Position = projectionMatrix * mvPosition;
+
+	}
+
+        </script>
+        <script type="x-shader/x-fragment" id="particles_fragment">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+        
+            uniform vec3 color;
+            uniform float baseOpacity;
+            uniform sampler2D particle_texture;
+        
+            varying vec3 vColor;
+            varying float vOpacity;
+        
+            void main() {
+                vec4 outColor = vec4( vColor, baseOpacity );
+                gl_FragColor = outColor * texture2D( particle_texture, gl_PointCoord );
+            }
+        </script>
+        
+        
+        
+        
+        
+        <script src="js/particle/ShaderExtras.js"></script>
+        <script src="js/particle/EffectComposer.js"></script>
+        <script src="js/particle/RenderPass.js"></script>
+        <script src="js/particle/ShaderPass.js"></script>
+        <script src="js/particle/MaskPass.js"></script>
+        <script src="js/particle/SavePass.js"></script>
+        
+        <script src="js/particle/FBOParticles.js"></script>
+        <script src="js/particle/optimized_noise.js"></script>
+        <script src="js/particle/PhotoshopMath.js"></script>
+        <script src="js/particle/PostComposer.js"></script>
+        
+        
+        <script src="./js/Utils.js"></script>
+        <!--        <script src="./js/SyncConnectionWebRTC.js"></script>-->
+        <script src="./js/SyncConnectionSocketIO.js"></script>
+        <script src="./js/Main5.js"></script>
+        <script src="./js/Main5b.js"></script>
+        <script src="./js/Main5Controller.js"></script>
+        <script src="./js/Main6.js"></script>
+        <script src="./js/Main6Controller.js"></script>
+        <script src="./js/Main6Data.js"></script>
+        <script src="./js/Main8.js"></script>
+        <script src="./js/Main8Controller.js"></script>
+        <script src="./js/Main8Data.js"></script>
+        
+        <script src="./js/Main10/Main10.js"></script>
+        <script src="./js/Main10/Main10Controller.js"></script>
+        <script src="./js/Main10/Main10Data.js"></script>
+        
+        <script src="./js/Background.js"></script>
+        
+        <script src="./js/Main11/Main11.js"></script>
+        <script src="./js/Main11/Main11Controller.js"></script>
+        <script src="./js/Main11/Main11Data.js"></script>
+        
+        <script src="js/Main9.js"></script>
+        <script src="js/Main9Controller.js"></script>
+        
+        <script src="js/lib/fss.js"></script>
+        <script src="js/lib/now.js"></script>
+        
+        
+        <script src="js/particle/Three.js"></script>
+        
+        <script>
+            //client
+            var clientid = getUrlVars()["id"]==undefined?50:getUrlVars()["id"];
+            
+            
+            //debug functions
+            document.getElementById(''+9).addEventListener('click', function(e) { 
+                location.reload(1);
+                FocusModel.instance.syncConnection.stateChange({'reload':1}, e);
+            }.bind(this), false);
+            
+//            if(clientid == 57) {
+                document.getElementById('menu').style.visibility = 'visible';
+                document.getElementsByTagName('html')[0].style.cursor = "auto";
+//            }
+            
+            
+            var focusView = null;
+            
+            var syncConnection = new SyncConnectionSocketIO();
+            syncConnection.startConnection();
+            
+            window.scene = new THREE.Scene();
+            var w = 1280;
+            var h = 800;
+            var screenCount = 1;
+            
+            var renderer = new THREE.WebGLRenderer({ clearColor: 0x232329, clearAlpha: 1, antialias: true });
+            renderer.autoClear = false;
+            renderer.setSize(w, h);
+            document.getElementById( 'container' ).appendChild( renderer.domElement );
+            //            
+//                                              var background = new Background(clientid,renderer);
+//                                                background.init(); //own renderloop
+            
+            //floorplan
+//                        var ref6 = new Main6(clientid, renderer);
+//                        ref6.init(scene);
+//                        ref6.controller.view = ref6;  
+//                        focusView= ref6;
+            
+            //video
+//                        var ref8 = new Main8(clientid, renderer);
+//                        ref8.init(scene, 1024, w, h);
+//                        ref8.controller.view = ref8;
+//                        focusView= ref8;
+            
+            
+            //coverflow            
+            var ref10 = new Main10(clientid, renderer);
+            ref10.init(scene);
+            ref10.controller.view = ref10;
+            focusView = ref10;
+            
+            
+            //slideshow
+//                                                var ref11 = new Main11(clientid, renderer);
+//                                                ref11.init(scene);
+//                                                ref11.controller.view = ref11;
+//                                                focusView = ref11;
+            //particles                        
+//                                                var ref9 = new Main9(clientid, renderer);
+//                                                ref9.init(scene, 1024, w, h);
+//                                                ref9.controller.view = ref9;
+//                                                focusView = ref9;
+            
+            FocusModel.instance.activateFocus(focusView.controller); //main receives user input
+            //focusView.controller.controls = new THREE.TrackballControls(focusView.camera,  renderer.domElement);
+            
+            
+            //            document.getElementById(''+1).addEventListener('click', function(e) { 
+            //                InputManager.getInstance().dispatchEvent(new InputEvent("prev"));
+            //            }.bind(this), false);
+            //            
+            //            if(clientid ==52) {
+            //                var intervalID = window.setInterval(function() {
+            //                    InputManager.getInstance().dispatchEvent(new InputEvent("next"));
+            //                },10000);
+            //            }
+            
+            
+            //                            Main11Controller.prototype.transition1, 1000, new InputEvent("next"));
+            
+            (function renderloop() {
+                renderer.render( scene, focusView.camera );
+                TWEEN.update();
+                if(focusView.needsContinuousUpdate) focusView.update();
+                if(focusView.controller.needsContinuousUpdate) focusView.controller.update();
+                requestAnimationFrame(renderloop);
+            })();
+        </script>
+        
+    </body>
+</html>
+controller.needsContinuousUpdate) focusView.controller.update();
+requestAnimationFrame(renderloop);
+})();
+</script>
+
+</body>
+</html>
