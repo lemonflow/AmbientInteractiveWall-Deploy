@@ -4,9 +4,10 @@ var connect = require('connect'),
     flick = require('flick'),
     app = connect();
 
-function gitPull(root, options)
-{
+function gitPull(root, options) {
     return function(req, res, next) {
+        console.log('Got WebHook for %s/%s', repository.owner.name, repository.name);
+        
         var cmd = 'git pull' + (options.rebase ? ' --rebase' : '');
         
         shell.cd(root);
@@ -19,7 +20,6 @@ function gitPull(root, options)
 }
 
 var handler = flick();
-
 handler.use('lemonflow/AmbientInteractiveWall-Deploy', gitPull('~/Workspace/AmbientInteractiveWall-Deploy', { rebase: true }));
 
 // Parse body of POST requests
