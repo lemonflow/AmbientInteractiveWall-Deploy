@@ -12,12 +12,12 @@ ws.on('data',  function(data) { console.log(data)});
 
 function triggerStateChange() {
     var obj = {'reload':1};
-     console.log("stat: "+sockjsm.readyState);
-    if(sockjsm.readyState==1) {
+     console.log("state: "+sockjsm.readyState);
+//    if(sockjsm.readyState==1) {
         obj['id'] = 100;
         console.log("sending: "+JSON.stringify(obj));
-        ws.send(JSON.stringify(obj));
-    }
+        ws.write(JSON.stringify(obj));
+//    }
 }
 
 function gitPull(root, options) {
