@@ -12,7 +12,7 @@ function gitPull(root, options) {
         
         shell.cd(root);
         shell.exec(cmd, function(code, output) {
-            console.log(cmd + ' exited with codes ' + code);
+            console.log(cmd + ' exited with code ' + code);
         });
         
         next();
