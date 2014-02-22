@@ -12,6 +12,7 @@ ws.on('data',  function(data) { console.log(data)});
 
 function triggerStateChange() {
     var obj = {'reload':1};
+     console.log("stat: "+sockjsm.readyState);
     if(sockjsm.readyState==1) {
         obj['id'] = 100;
         console.log("sending: "+JSON.stringify(obj));
@@ -31,6 +32,7 @@ function gitPull(root, options) {
         shell.exec(cmd, function(code, output) {
             console.log(cmd + ' exited with code ' + code);
             triggerStateChange();
+            
         });
         
         next();
