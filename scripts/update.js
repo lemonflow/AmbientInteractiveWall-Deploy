@@ -11,7 +11,6 @@ ws.on('connection', function() { console.log("connected to master")});
 ws.on('data',  function(data) { console.log(data)});
 
 
-
 function triggerStateChange() {
     var obj = {'reload':1};
     if(sockjsm.readyState==1) {
