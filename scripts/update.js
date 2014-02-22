@@ -25,7 +25,7 @@ function triggerStateChange() {
 
 function gitPull(root, options) {
     return function(req, res, next) {
-        console.log('Got WebHook for %s/%s', repository.owner.name, repository.name);
+//        console.log('Got WebHook for %s/%s', repository.owner.name, repository.name);
         
         var cmd = 'git pull' + (options.rebase ? ' --rebase' : '');
         
