@@ -2,7 +2,36 @@
 var connect = require('connect'),
     shell = require('shelljs'),
     flick = require('flick'),
+    sockjsm = require('sockjs'),
     app = connect();
+
+
+var sockjs_url = 'http://192.168.3.56:3000/echo';
+var sockjs = new SockJS(sockjs_url);
+
+
+function startConnection() {
+    self = this;
+    sockjs.onopen = function()  { 
+    };
+    
+    sockjs.onmessage = function(e) { //receiving
+    };
+    
+    sockjs.onclose   = function()  {
+    };
+}
+
+function triggerStateChange() {
+    var obj = {'reload':1};
+    if(sockjs.readyState==1) {
+        obj['id'] = 100;
+        console.log("sending: "+JSON.stringify(obj));
+        sockjs.send(JSON.stringify(obj));
+    }
+}
+
+
 
 function gitPull(root, options) {
     return function(req, res, next) {
@@ -13,6 +42,7 @@ function gitPull(root, options) {
         shell.cd(root);
         shell.exec(cmd, function(code, output) {
             console.log(cmd + ' exited with code ' + code);
+            triggerStateChange();
         });
         
         next();
