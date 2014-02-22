@@ -13,6 +13,7 @@ var obj;
 
 sockjs_echo.on('connection', function(conn) {
     conn.on('data', function(message) {
+         console.log("receive: "+message);
         obj = JSON.parse(message); 
         
         //map if new connection 

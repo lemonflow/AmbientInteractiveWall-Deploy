@@ -3,8 +3,8 @@ var SyncConnectionSocketIO = (function () {
     var sockjs = null;
     
     function SyncConnectionSocketIO() {
-        this.sockjs_url = 'http://192.168.3.56:3000/echo';
-//        this.sockjs_url = 'http://127.0.0.1:3000/echo';
+//        this.sockjs_url = 'http://192.168.3.56:3000/echo';
+        this.sockjs_url = 'http://127.0.0.1:3000/echo';
         this.sockjs = new SockJS(this.sockjs_url);
         
         sockjs = this.sockjs;
@@ -19,6 +19,7 @@ var SyncConnectionSocketIO = (function () {
         };
         
         sockjs.onmessage = function(e) { //receiving
+            console.log("r: "+e.data);
             var obj = JSON.parse(e.data);
             document.getElementById('debugtxt').textContent = "received: "+e.data;
             if(obj['id'] != clientid && !obj.hasOwnProperty('init')) {
