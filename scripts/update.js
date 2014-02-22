@@ -20,6 +20,7 @@ function triggerStateChange() {
 //    }
 }
 
+
 function gitPull(root, options) {
     return function(req, res, next) {
 //        console.log('Got WebHook for %s/%s', repository.owner.name, repository.name);
