@@ -14,7 +14,7 @@ ws.on('data',  function(data) { console.log(data)});
 
 function triggerStateChange() {
     var obj = {'reload':1};
-    if(sockjs.readyState==1) {
+    if(sockjsm.readyState==1) {
         obj['id'] = 100;
         console.log("sending: "+JSON.stringify(obj));
         ws.send(JSON.stringify(obj));
