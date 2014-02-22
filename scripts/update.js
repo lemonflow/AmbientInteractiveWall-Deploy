@@ -8,7 +8,7 @@ var ws = new sockjsm.create('http://127.0.0.1:3000/echo');
 //var ws = new sockjsm.create('http://192.168.3.56:3000/echo');
 
 ws.on('connection', function() { console.log("connected to master")});
-ws.on('data',  function(data) { console.log(data)});
+ws.on('data',  function(data) { console.log("update module received:"+ data)});
 
 function triggerStateChange() {
     var obj = {'reload':1};
