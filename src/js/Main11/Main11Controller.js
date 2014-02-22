@@ -69,7 +69,8 @@ var Main11Controller = (function() {
       FocusModel.instance.syncConnection.stateChange(obj, e);
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
-        
+        if(this.slideId >= Main11Data.length) this.slideId =0;
+           
         console.log(this.view.objects.length);
         
         new TWEEN.Tween(this.view.camera.position).to({ 
@@ -90,6 +91,7 @@ var Main11Controller = (function() {
         
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
+        if(this.slideId >= Main11Data.length) this.slideId =0;
         
         new TWEEN.Tween(this.view.camera.position).to({ 
             x: 0, y: 0, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();

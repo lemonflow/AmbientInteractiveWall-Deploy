@@ -106,7 +106,7 @@ var Main10Controller = (function() {
             x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
         for(var i=0; i<this.view.objects.length;i++){
              new TWEEN.Tween(this.view.objects[i].material)
-                 .to({opacity: (i==this.slideId)?1.0:0.08}, 1000)
+                 .to({opacity: (i==this.slideId)?1.0:0.5}, 1000)
                  .easing(TWEEN.Easing.Exponential.Out)
                  .start();
         }
@@ -121,7 +121,7 @@ var Main10Controller = (function() {
             x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
         for(var i=0; i<this.view.objects.length;i++){
              new TWEEN.Tween(this.view.objects[i].material)
-                 .to({opacity: (i==this.slideId)?1.0:0.08}, 1000)
+                 .to({opacity: (i==this.slideId)?1.0:0.5}, 1000)
                  .easing(TWEEN.Easing.Exponential.Out)
                  .start();
         }

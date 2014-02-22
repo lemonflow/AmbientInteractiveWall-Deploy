@@ -6,5 +6,6 @@ var Main11Data = [
     [ "S coupe2", "wide4.png"],
     [ "S coupe2", "wide5.png"],
     [ "S coupe2", "wide6.png"],
-    [ "S coupe2", "wide7.png"]
+    [ "S coupe2", "wide7.png"],
+    [ "S coupe2", "wide8.png"]
 ];
