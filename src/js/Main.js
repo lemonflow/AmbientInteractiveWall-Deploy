@@ -34,10 +34,10 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 //background.init(); //own renderloop
 //
 ////floorplan
-//var ref6 = new Main6(clientid, renderer);
-//ref6.init(scene);
-//ref6.controller.view = ref6;
-//focusView= ref6;
+var ref6 = new FloorPlan(clientid, renderer);
+ref6.init(scene);
+ref6.controller.view = ref6;
+focusView= ref6;
 //
 ////video
 //var ref8 = new Main8(clientid, renderer);
@@ -47,10 +47,10 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 
 //coverflow
-var ref10 = new CoverFlow(clientid, renderer);
-ref10.init(scene);
-ref10.controller.view = ref10;
-focusView = ref10;
+//var ref10 = new CoverFlow(clientid, renderer);
+//ref10.init(scene);
+//ref10.controller.view = ref10;
+//focusView = ref10;
 
 //
 ////slideshow

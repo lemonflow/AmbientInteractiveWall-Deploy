@@ -1,12 +1,12 @@
-var Main6Controller = (function () {
+var FloorPlanController = (function () {
     
-    Main6Controller.prototype = Object.create(OperatorStates.prototype);
-    Main6Controller.prototype.constructor = Main6Controller;
+    FloorPlanController.prototype = Object.create(OperatorStates.prototype);
+    FloorPlanController.prototype.constructor = FloorPlanController;
     
     var _view = null;
     var spread = 200;
     
-    function Main6Controller() {
+    function FloorPlanController() {
         OperatorStates.call(this);
         
         this.slideId = -1;
@@ -21,24 +21,24 @@ var Main6Controller = (function () {
                 changes:
                 [
                     {type:"focusactivate",
-                     transition:[Main6Controller.prototype.transition1],
+                     transition:[FloorPlanController.prototype.transition1],
                      newState:"state0"}
                 ]
             }
         ];
     }
     
-    Main6Controller.prototype.initController = function() {
+    FloorPlanController.prototype.initController = function() {
         document.getElementById(''+1).addEventListener('click', function(e) { 
             InputManager.getInstance().dispatchEvent(new InputEvent("play"));
         }.bind(this), false);
     }
     
-    Main6Controller.prototype.syncTransition = function(obj) {
+    FloorPlanController.prototype.syncTransition = function(obj) {
         this.slideId = obj.data1;
         this.transitionSync(new InputEvent(obj.data2));
     }
-    Main6Controller.prototype.initOperators = function(objects, operators) {
+    FloorPlanController.prototype.initOperators = function(objects, operators) {
         var groupid = 0;
         for (var i = 0; i < objects.length; i++) {
             var item = Main6Data[i];
@@ -51,7 +51,7 @@ var Main6Controller = (function () {
         }
     }
     
-    Main6Controller.prototype.layout = function(operators, duration,objects) {
+    FloorPlanController.prototype.layout = function(operators, duration,objects) {
         for (var i = 0; i < objects.length; i++) {
             var object = objects[i];
             var target = operators[i];
@@ -70,15 +70,15 @@ var Main6Controller = (function () {
         }
     }
     
-    Main6Controller.prototype.syncTransition = function(obj) {
+    FloorPlanController.prototype.syncTransition = function(obj) {
         this.slideId = obj.data1;
         this.transitionSync(new InputEvent(obj.data2));
     }
     
     
     //actual states
-    Main6Controller.prototype.transition0 = function(e) {
-        Main6Controller = this;
+    FloorPlanController.prototype.transition0 = function(e) {
+        FloorPlanController = this;
         
         var obj = {'pos':0};
         FocusModel.instance.syncConnection.stateChange(obj, e);
@@ -105,7 +105,7 @@ var Main6Controller = (function () {
     
     
     
-    Main6Controller.prototype.transition1 = function(e) {
+    FloorPlanController.prototype.transition1 = function(e) {
         
         var obj = {'pos':1};
         FocusModel.instance.syncConnection.stateChange(obj, e);
@@ -129,7 +129,7 @@ var Main6Controller = (function () {
     
     
     //receiving
-    Main6Controller.prototype.transitionSync = function(e) {
+    FloorPlanController.prototype.transitionSync = function(e) {
         
                
         new TWEEN.Tween(this.view.camera.position)
@@ -155,11 +155,11 @@ var Main6Controller = (function () {
 //        new TWEEN.Tween(this.view.objects[6].material)
 //        .to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
     }
-    return Main6Controller;
+    return FloorPlanController;
     
 })();
 //
-//    Main6Controller.prototype.transition0 = function() {
+//    FloorPlanController.prototype.transition0 = function() {
 //        state = "state1";
 //        
 //        this.view.objects[7].material.opacity = 0;
@@ -177,7 +177,7 @@ var Main6Controller = (function () {
 ////            new TWEEN.Tween(this.view.objects[i].position).to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 //    }
 //    
-//    Main6Controller.prototype.transition1 = function() {
+//    FloorPlanController.prototype.transition1 = function() {
 //        state = "state2";
 //        
 //        //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
@@ -193,7 +193,7 @@ var Main6Controller = (function () {
 //    }
 //    
 //    
-//    Main6Controller.prototype.transition2 = function() {
+//    FloorPlanController.prototype.transition2 = function() {
 //        state = "state3";
 //        this.view.objects[7].material.opacity = 0;
 //        this.view.objects[8].material.opacity = 0;
@@ -210,7 +210,7 @@ var Main6Controller = (function () {
 //        
 //    }
 //    
-//    Main6Controller.prototype.transition3 = function() {
+//    FloorPlanController.prototype.transition3 = function() {
 //        state = "state4";
 //        this.view.objects[7].material.opacity = 0;
 //        this.view.objects[8].material.opacity = 0;
@@ -226,7 +226,7 @@ var Main6Controller = (function () {
 //            new TWEEN.Tween(this.view.objects[i].position).to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 //    }
 //    
-//    Main6Controller.prototype.transition4 = function() {
+//    FloorPlanController.prototype.transition4 = function() {
 //        state = "state5";
 //        this.view.objects[7].material.opacity = 0;
 //        this.view.objects[8].material.opacity = 0;
@@ -241,7 +241,7 @@ var Main6Controller = (function () {
 //        this.layout(this.view.operators.overviewLayout, 1000, this.view.objects );
 //    }
 //    
-//    Main6Controller.prototype.transition5 = function() {
+//    FloorPlanController.prototype.transition5 = function() {
 //        state = "state6";
 //        this.view.objects[7].material.opacity = 0;
 //        this.view.objects[8].material.opacity = 0;
@@ -257,7 +257,7 @@ var Main6Controller = (function () {
 //            new TWEEN.Tween(this.view.objects[i].position).to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 //    }
 //    
-//    Main6Controller.prototype.transition6= function() {
+//    FloorPlanController.prototype.transition6= function() {
 //        state = "state7";
 //        this.view.objects[7].material.opacity = 0;
 //        this.view.objects[8].material.opacity = 1;
@@ -275,7 +275,7 @@ var Main6Controller = (function () {
 //            new TWEEN.Tween(this.view.objects[i].position).to({x: -400}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 //    }
 //    
-//    Main6Controller.prototype.transition7 = function() {
+//    FloorPlanController.prototype.transition7 = function() {
 //        state = "state8";
 //        this.view.objects[7].material.opacity = 1;
 //        this.view.objects[8].material.opacity = 0;
@@ -292,7 +292,7 @@ var Main6Controller = (function () {
 //            new TWEEN.Tween(this.view.objects[i].position).to({x: 400}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 //    }
 //    
-//    Main6Controller.prototype.transition8 = function() {
+//    FloorPlanController.prototype.transition8 = function() {
 //        state = "state9";
 //        
 //        this.view.objects[7].material.opacity = 0;
@@ -307,5 +307,5 @@ var Main6Controller = (function () {
 //        
 //    }
 //    
-//    return Main6Controller;
+//    return FloorPlanController;
 //})();

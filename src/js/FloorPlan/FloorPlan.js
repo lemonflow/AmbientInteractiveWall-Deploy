@@ -1,4 +1,4 @@
-var Main6 = (function () {
+var FloorPlan = (function () {
     var renderer;
     var camera;
     
@@ -7,7 +7,7 @@ var Main6 = (function () {
     var fullWidth =  window.innerWidth
     var fullHeight = window.innerHeight;
     
-    function Main6(idx, r) {
+    function FloorPlan(idx, r) {
         this.id = idx;
         this.camera = null;
         this.objects = [];
@@ -25,10 +25,10 @@ var Main6 = (function () {
         fullWidth = screenCount*w;
         fullHeight = h;
         
-        this.controller = new Main6Controller(this);
+        this.controller = new FloorPlanController(this);
     }
     
-    Main6.prototype.init = function(scene) {
+    FloorPlan.prototype.init = function(scene) {
         this.camera = new THREE.PerspectiveCamera( 75, w / h, 1, 10000 );
         var offsetX = (clientid-50)*w;
         this.camera.setViewOffset( fullWidth, fullHeight, offsetX, 0, w, h );
@@ -55,5 +55,5 @@ var Main6 = (function () {
 //        this.controller.transition0();
     };
     
-    return Main6;
+    return FloorPlan;
 })();
