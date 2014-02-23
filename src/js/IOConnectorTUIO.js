@@ -110,7 +110,7 @@ $(function() {
     onConnect = function() {
         document.getElementById('debugtxt').textContent = "TUIO connected";
                 context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = "#454545";
+        context.fillStyle = "#457745";
         context.fillRect(100,100, 50, 50);
     };
     
