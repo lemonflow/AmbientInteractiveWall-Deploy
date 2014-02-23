@@ -79,7 +79,7 @@ $(function() {
             y: evt.clientY - rect.top
         };
 //        document.getElementById('debugtxt').textContent = 'Mouse MOVE: ' + mousePos.x + ',' + mousePos.y;
-//        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 20, canvas.width, canvas.height);
 //        context.fillStyle = "#454545";
 //        context.fillRect(mousePos.x-25, mousePos.y-25, 50, 50);
 //        context.fillStyle = "#898989";
@@ -109,9 +109,11 @@ $(function() {
     
     onConnect = function() {
         document.getElementById('debugtxt').textContent = "TUIO connected";
-                context.clearRect(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, 20);
         context.fillStyle = "#457745";
-        context.fillRect(100,100, 50, 50);
+        context.fillRect(0,0, 20, 20);
+        context.fillStyle = "#898989";
+        context.fillText("TUIO connected");
     };
     
     onAddTuioCursor = function(addCursor) {
