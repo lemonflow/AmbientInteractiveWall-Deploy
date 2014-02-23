@@ -80,8 +80,8 @@ var Main9Controller = (function () {
         obj['data2'] = e.type;
         
         
-//        if(e.type =='prev') this.slideId--;
-//        if(e.type =='next') this.slideId++;
+        if(e.type =='prev') this.slideId--;
+        if(e.type =='next') this.slideId++;
 //        
         console.log(this.slideId);
 //        FocusModel.instance.syncConnection.stateChange(obj, e);
@@ -121,8 +121,8 @@ var Main9Controller = (function () {
     }
     
     Main9Controller.prototype.transitionSync = function(e) {
-//        if(e.type =='prev') this.slideId--;
-//        if(e.type =='next') this.slideId++;
+        if(e.type =='prev') this.slideId--;
+        if(e.type =='next') this.slideId++;
         
         new TWEEN.Tween(this.view.camera.position).to({ 
             x: 0, y: 0, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
