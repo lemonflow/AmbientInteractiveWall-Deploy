@@ -118,9 +118,7 @@ $(function() {
     
     onAddTuioCursor = function(c) {
         
-        context.clearRect(50, 0, canvas.width, 20);
-        context.fillStyle = "#457745";
-        context.fillRect(50 ,0, 20, 20);
+        context.clearRect(75, 0, canvas.width, 20);
         context.fillStyle = "#898989";
         context.fillText("TUIO addCursor",75,12);
         
@@ -139,6 +137,10 @@ $(function() {
     };
     
     onRemoveTuioCursor = function(c) {
+        context.clearRect(75, 0, canvas.width, 20);
+        context.fillStyle = "#898989";
+        context.fillText("TUIO removeCursor",75,12);
+        
         var cursor = cursors[c.getCursorId()];
         delete[c.getCursorId()];
     };
