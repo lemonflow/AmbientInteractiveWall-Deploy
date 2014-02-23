@@ -19,13 +19,14 @@ var obj;
 //brocker communication with all the nodes on all render clients
 sockjs_echo.on('connection', function(conn) {
     conn.on('data', function(message) {
-        console.log("receive: "+message);
+//        console.log("receive: "+message);
         obj = JSON.parse(message); 
         
         //map if new connection 
         if(uuid_map[obj.id] == undefined || uuid_map[obj.id] == null) {
             uuid_ids.push(obj.id);
             uuid_map[obj.id] = conn;
+            console.log("adding: "+uid_map[obj.id]);
         }
         
         //broadcast message to all connections
@@ -33,7 +34,7 @@ sockjs_echo.on('connection', function(conn) {
             var tconn = uuid_map[uuid_ids[i]];
             if(tconn == null) continue;
             tconn.write(JSON.stringify(obj));
-            console.log("sending to: "+uuid_ids[i]);
+//            console.log("sending to: "+uuid_ids[i]);
         }
     });
     
@@ -81,17 +82,14 @@ ws.on('data',  function(data) { console.log("update module received:"+ data)});
 function gitPull(root, options) {
     return function(req, res, next) {
         //console.log('Got WebHook for %s/%s', repository.owner.name, repository.name);
-        
         var cmd = 'git pull' + (options.rebase ? ' --rebase' : '');
         
         shell.cd(root);
         shell.exec(cmd, function(code, output) {
             console.log(cmd + ' exited with code ' + code);
             var obj = {'reload':1};
-            console.log("state: "+sockjsm.readyState);
-
             obj['id'] = 100;
-            console.log("sending: "+JSON.stringify(obj));
+//            console.log("sending: "+JSON.stringify(obj));
             ws.write(JSON.stringify(obj));
         });
         
