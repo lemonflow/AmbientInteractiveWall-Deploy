@@ -113,7 +113,7 @@ $(function() {
         context.fillStyle = "#457745";
         context.fillRect(0,0, 20, 20);
         context.fillStyle = "#898989";
-        context.fillText("TUIO connected",25,0);
+        context.fillText("TUIO connected",25,25);
     };
     
     onAddTuioCursor = function(addCursor) {
