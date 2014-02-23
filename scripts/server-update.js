@@ -15,7 +15,7 @@ var connect = require('connect'),
 
 function gitPull(root, options) {
     return function(req, res, next) {
-        console.log('Got WebHook');
+        console.log('Got WebHook from Github');
         
         var cmd = 'git pull' + (options.rebase ? ' --rebase' : '');
         
