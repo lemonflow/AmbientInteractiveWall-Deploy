@@ -59,7 +59,7 @@ var Main9 = (function () {
         camera = new THREE.PerspectiveCamera( 70, w / h, 1, 100000 );
         camera.position.x = 0;
         camera.position.y = 0;
-        camera.position.z = 10000;
+        camera.position.z = 2000;
         var offsetX = (clientid-50)*w;
         camera.setViewOffset( fullWidth, fullHeight, offsetX, 0, w, h );
         this.camera = camera;
