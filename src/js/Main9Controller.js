@@ -67,7 +67,7 @@ var Main9Controller = (function () {
     //go through slideshow
     Main9Controller.prototype.transition1 = function(e) {
         Main9ControllerThis = this;
-                console.log(this.slideId +' '+e.type);
+        console.log(this.slideId +' '+e.type);
         
         if((this.slideId <= 1 && e.type =='prev')) 
             return;
@@ -86,14 +86,14 @@ var Main9Controller = (function () {
         console.log(this.slideId);
 //        FocusModel.instance.syncConnection.stateChange(obj, e);
         THREE.ImageUtils.loadTexture.call(Main9ControllerThis, 
-                                          './assets/wide8.png', 
+                                          './assets/wide'+this.slideId+'.png', 
                                               new THREE.UVMapping(),  function(texture) {
                                               Main9ControllerThis.view.assignTextureMap(texture);
                                               Main9ControllerThis.view.simulationTrigger(texture);
                                           });
         
         new TWEEN.Tween(this.view.camera.position).to({ 
-            x: 0, y: 0, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+            x: 0, y: 0, z: 521}, 10000).easing(TWEEN.Easing.Exponential.Out) .start();
         
         for(var i=0; i<this.view.objects.length;i++){
              this.view.objects[i].material.opacity = 0;
