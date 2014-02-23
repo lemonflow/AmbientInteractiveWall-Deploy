@@ -124,49 +124,38 @@ $(function() {
         context.fillStyle = "#898989";
         context.fillText("TUIO addCursor",75,12);
         
-        cursors[c.getCursorId()] = c.getCursorId();
+        cursors[c.getCursorId()] = c;
         onUpdateTuioCursor(c);
     };
     
     onUpdateTuioCursor = function(c) {
-        var value = cursors[c.getCursorId()];
+        var cursor = cursors[c.getCursorId()];
         
         context.clearRect(0, 20, canvas.width, canvas.height);
         context.fillStyle = "#784545";
         context.fillRect(mousePos.x-25, mousePos.y-25, 50, 50);
         context.fillStyle = "#776666";
-        context.fillText(mousePos.x + ',' + mousePos.y, c.getScreenX(screenW)-20, c.getScreenY(screenH)-30);
+        context.fillText(mousePos.x + ',' + mousePos.y, cursor.getScreenX(screenW)-20, cursor.getScreenY(screenH)-30);
     };
     
-    onRemoveTuioCursor = function(removeCursor) {
-        var $removeCursor = cursors[removeCursor.getCursorId()];
-        $removeCursor.remove();
-        delete[removeCursor.getCursorId()];
+    onRemoveTuioCursor = function(c) {
+        var cursor = cursors[c.getCursorId()];
+        delete[c.getCursorId()];
     };
     
     onAddTuioObject = function(addObject) {
         console.log(addObject);
     };
     
-    onUpdateTuioObject = function(updateObject) {
-        console.log(updateObject);
-    };
-    
-    onRemoveTuioObject = function(removeObject) {
-        console.log(removeObject);
-    };
-    
-    onRefresh = function(time) {
-    };
     
     client.on("connect", onConnect);
     client.on("addTuioCursor", onAddTuioCursor);
     client.on("updateTuioCursor", onUpdateTuioCursor);
     client.on("removeTuioCursor", onRemoveTuioCursor);
-    client.on("addTuioObject", onAddTuioObject);
-    client.on("updateTuioObject", onUpdateTuioObject);
-    client.on("removeTuioObject", onRemoveTuioObject);
-    client.on("refresh", onRefresh);
+//    client.on("addTuioObject", onAddTuioObject);
+//    client.on("updateTuioObject", onUpdateTuioObject);
+//    client.on("removeTuioObject", onRemoveTuioObject);
+//    client.on("refresh", onRefresh);
         client.connect();
 });
 
