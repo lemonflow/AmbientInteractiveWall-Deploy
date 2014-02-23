@@ -6,7 +6,7 @@ var brokerIP = 'http://192.168.3.56:3000';
 //update capability (connect to github webhooks and update content)
 var connect = require('connect'),
     shell = require('shelljs'),
-    flick = require('flick'),
+    flick = require('flick');
 //    sockjsm = require('sockjs-client');
 
 //var ws = new sockjsm.create(brokerIP+brokerPrefix);
