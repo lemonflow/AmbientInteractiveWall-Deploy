@@ -1,0 +1,1 @@
+./ngrok -authtoken hZNQsYGDUT4tpevFXkYs -subdomain=uxcloud 4567
