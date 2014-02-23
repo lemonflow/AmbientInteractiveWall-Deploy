@@ -8,7 +8,6 @@ var connect = require('connect'),
     shell = require('shelljs'),
     flick = require('flick');
 //    sockjsm = require('sockjs-client');
-
 //var ws = new sockjsm.create(brokerIP+brokerPrefix);
 //ws.on('connection', function() { console.log("connected to master")});
 //ws.on('data',  function(data) { console.log("update module received:"+ data)});
@@ -16,7 +15,7 @@ var connect = require('connect'),
 
 function gitPull(root, options) {
     return function(req, res, next) {
-        //console.log('Got WebHook for %s/%s', repository.owner.name, repository.name);
+        console.log('Got WebHook');
         
         var cmd = 'git pull' + (options.rebase ? ' --rebase' : '');
         
