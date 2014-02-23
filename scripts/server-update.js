@@ -7,11 +7,11 @@ var brokerIP = 'http://192.168.3.56:3000';
 var connect = require('connect'),
     shell = require('shelljs'),
     flick = require('flick'),
-    sockjsm = require('sockjs-client');
+//    sockjsm = require('sockjs-client');
 
-var ws = new sockjsm.create(brokerIP+brokerPrefix);
-ws.on('connection', function() { console.log("connected to master")});
-ws.on('data',  function(data) { console.log("update module received:"+ data)});
+//var ws = new sockjsm.create(brokerIP+brokerPrefix);
+//ws.on('connection', function() { console.log("connected to master")});
+//ws.on('data',  function(data) { console.log("update module received:"+ data)});
 
 
 function gitPull(root, options) {
@@ -23,12 +23,12 @@ function gitPull(root, options) {
         shell.cd(root);
         shell.exec(cmd, function(code, output) {
             console.log(cmd + ' exited with code ' + code);
-            var obj = {'reload':1};
-            console.log("state: "+sockjsm.readyState);
+//            var obj = {'reload':1};
+//            console.log("state: "+sockjsm.readyState);
 
-            obj['id'] = 100;
-            console.log("sending: "+JSON.stringify(obj));
-            ws.write(JSON.stringify(obj));
+//            obj['id'] = 100;
+//            console.log("sending: "+JSON.stringify(obj));
+//            ws.write(JSON.stringify(obj));
         });
         
         next();
