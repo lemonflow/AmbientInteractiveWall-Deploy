@@ -100,7 +100,7 @@ var Main9 = (function () {
             texture = THREE.ImageUtils.loadTexture( "assets/" + item[1] );
             material = new THREE.MeshBasicMaterial({ map : texture, transparent:true });
             material.opacity = (i==0)?0:0;
-            plane = new THREE.Mesh(new THREE.PlaneGeometry(7680, 800), material);
+            plane = new THREE.Mesh(new THREE.PlaneGeometry(8960, 800), material);
             plane.doubleSided = true;
             plane.position.y = 0;
             plane.rotation.x =  Math.PI / 2;
