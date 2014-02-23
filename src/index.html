@@ -10,6 +10,7 @@
         
         <div id="container2"></div>           
         <div id="container"></div>   
+        <div><canvas id="tuioCanvas"></canvas></div>
         
         <div id="menu" class="debug">
             <button id="1" >1</button>
@@ -28,8 +29,14 @@
             <source src="assets/MBRDNA_lobby.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
         </video>
         
+
         
-        <!--        <script src="./js/IOConnectorTUIO.js"></script>-->
+        <script src="js/lib/jquery-1.7.2.js"></script>
+        <script src="js/lib/lodash.js"></script>
+        <script src="js/lib/socket.io.js"></script>
+        <script src="js/lib/Tuio.min.js"></script>
+        <script src="js/IOConnectorTUIO.js"></script>
+        
         
         <script src="js/lib/three/three.min.js"></script>
         <script src="js/lib/three/loaders/OBJLoader.js"></script>
@@ -46,14 +53,9 @@
         <script src="js/lib/three/postprocessing/ShaderPass.js"></script>
         
         <script src="js/lib/tween.min.js"></script>
-        <!--        <script src="js/lib/Tuio.js"></script>-->
-        <!--        <script src="js/lib/peer.min.js"></script>-->
         <script src="js/lib/shaderloader.min.js"></script> <!--https://github.com/codecruzer/webgl-shader-loader-js-->
         <script src="js/lib/sockjs-0.3.min.js"></script>
         <script src="js/lib/lemonflow.js"></script>
-        
-        
-        
         
         <script src="./js/old/TrackballControls.js"></script>
         <script src="./js/old/CSS3DRenderer.js"></script>
@@ -451,10 +453,10 @@
             
             document.getElementsByTagName('html')[0].style.cursor = "visible";
             
-            if(clientid == 57) {
+//            if(clientid == 57) {
                 document.getElementById('menu').style.visibility = 'visible';
                 document.getElementsByTagName('html')[0].style.cursor = "auto";
-            }
+//            }
             
             var focusView = null;
             
@@ -495,16 +497,16 @@
             
             
             //slideshow
-            //                                                var ref11 = new Main11(clientid, renderer);
-            //                                                ref11.init(scene);
-            //                                                ref11.controller.view = ref11;
-            //                                                focusView = ref11;
+                                                            var ref11 = new Main11(clientid, renderer);
+                                                            ref11.init(scene);
+                                                            ref11.controller.view = ref11;
+                                                            focusView = ref11;
             //particles                        
-            var ref9 = new Main9(clientid, renderer);
-            ref9.init(scene, 1024, w, h);
-            ref9.controller.view = ref9;
-            focusView = ref9;
-            
+//            var ref9 = new Main9(clientid, renderer);
+//            ref9.init(scene, 1024, w, h);
+//            ref9.controller.view = ref9;
+//            focusView = ref9;
+//            
             
             FocusModel.instance.activateFocus(focusView.controller); //main receives user input
             //focusView.controller.controls = new THREE.TrackballControls(focusView.camera,  renderer.domElement);
@@ -521,13 +523,13 @@
             //                        }
             
             
-            (function renderloop() {
-                renderer.render( scene, focusView.camera );
-                TWEEN.update();
-                if(focusView.needsContinuousUpdate) focusView.update();
-                if(focusView.controller.needsContinuousUpdate) focusView.controller.update();
-                requestAnimationFrame(renderloop);
-            })();
+//            (function renderloop() {
+//                renderer.render( scene, focusView.camera );
+//                TWEEN.update();
+//                if(focusView.needsContinuousUpdate) focusView.update();
+//                if(focusView.controller.needsContinuousUpdate) focusView.controller.update();
+//                requestAnimationFrame(renderloop);
+//            })();
         </script>
         
     </body>
