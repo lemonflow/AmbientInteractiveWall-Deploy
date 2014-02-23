@@ -26,7 +26,7 @@ sockjs_echo.on('connection', function(conn) {
         if(uuid_map[obj.id] == undefined || uuid_map[obj.id] == null) {
             uuid_ids.push(obj.id);
             uuid_map[obj.id] = conn;
-            console.log("adding: "+uid_map[obj.id]);
+            console.log("adding: "+obj.id);
         }
         
         //broadcast message to all connections
