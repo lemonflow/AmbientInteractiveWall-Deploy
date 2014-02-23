@@ -30,7 +30,7 @@
         
         
         <!--        <script src="./js/IOConnectorTUIO.js"></script>-->
-
+        
         <script src="js/lib/three/three.min.js"></script>
         <script src="js/lib/three/loaders/OBJLoader.js"></script>
         <script src="js/lib/three/controls/TrackballControls.js"/>
@@ -471,39 +471,39 @@
             renderer.setSize(w, h);
             document.getElementById( 'container' ).appendChild( renderer.domElement );
             //            
-//                                              var background = new Background(clientid,renderer);
-//                                                background.init(); //own renderloop
+            //                                              var background = new Background(clientid,renderer);
+            //                                                background.init(); //own renderloop
             
             //floorplan
-//                        var ref6 = new Main6(clientid, renderer);
-//                        ref6.init(scene);
-//                        ref6.controller.view = ref6;  
-//                        focusView= ref6;
+            //                        var ref6 = new Main6(clientid, renderer);
+            //                        ref6.init(scene);
+            //                        ref6.controller.view = ref6;  
+            //                        focusView= ref6;
             
             //video
-//                        var ref8 = new Main8(clientid, renderer);
-//                        ref8.init(scene, 1024, w, h);
-//                        ref8.controller.view = ref8;
-//                        focusView= ref8;
-//            
+            //                        var ref8 = new Main8(clientid, renderer);
+            //                        ref8.init(scene, 1024, w, h);
+            //                        ref8.controller.view = ref8;
+            //                        focusView= ref8;
+            //            
             
             //coverflow            
-//            var ref10 = new Main10(clientid, renderer);
-//            ref10.init(scene);
-//            ref10.controller.view = ref10;
-//            focusView = ref10;
+            //            var ref10 = new Main10(clientid, renderer);
+            //            ref10.init(scene);
+            //            ref10.controller.view = ref10;
+            //            focusView = ref10;
             
             
             //slideshow
-//                                                var ref11 = new Main11(clientid, renderer);
-//                                                ref11.init(scene);
-//                                                ref11.controller.view = ref11;
-//                                                focusView = ref11;
+            //                                                var ref11 = new Main11(clientid, renderer);
+            //                                                ref11.init(scene);
+            //                                                ref11.controller.view = ref11;
+            //                                                focusView = ref11;
             //particles                        
-                                                var ref9 = new Main9(clientid, renderer);
-                                                ref9.init(scene, 1024, w, h);
-                                                ref9.controller.view = ref9;
-                                                focusView = ref9;
+            var ref9 = new Main9(clientid, renderer);
+            ref9.init(scene, 1024, w, h);
+            ref9.controller.view = ref9;
+            focusView = ref9;
             
             
             FocusModel.instance.activateFocus(focusView.controller); //main receives user input
@@ -514,11 +514,11 @@
             //                InputManager.getInstance().dispatchEvent(new InputEvent("prev"));
             //            }.bind(this), false);
             //            
-//                        if(clientid ==50) {
-//                            var intervalID = window.setInterval(function() {
-//                                InputManager.getInstance().dispatchEvent(new InputEvent("next"));
-//                            },1000);
-//                        }
+            //                        if(clientid ==50) {
+            //                            var intervalID = window.setInterval(function() {
+            //                                InputManager.getInstance().dispatchEvent(new InputEvent("next"));
+            //                            },1000);
+            //                        }
             
             
             (function renderloop() {
