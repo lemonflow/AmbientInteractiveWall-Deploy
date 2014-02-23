@@ -106,7 +106,7 @@ $(function() {
     cursors = {};
     
     onConnect = function() {
-        document.getElementById('debugtxt').textContent = "TUIO connected");
+        document.getElementById('debugtxt').textContent = "TUIO connected";
     };
     
     onAddTuioCursor = function(addCursor) {
