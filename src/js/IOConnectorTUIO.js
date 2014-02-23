@@ -116,19 +116,26 @@ $(function() {
         context.fillText("TUIO connected",25,12);
     };
     
-    onAddTuioCursor = function(addCursor) {
-        var $addCursor = $('<div class="tuioCursor"></div>');
-        $("body").append($addCursor);
-        cursors[addCursor.getCursorId()] = $addCursor;
-        onUpdateTuioCursor(addCursor);
+    onAddTuioCursor = function(c) {
+        
+        context.clearRect(50, 0, canvas.width, 20);
+        context.fillStyle = "#457745";
+        context.fillRect(50 ,0, 20, 20);
+        context.fillStyle = "#898989";
+        context.fillText("TUIO addCursor",75,12);
+        
+        cursors[c.getCursorId()] = c.getCursorId();
+        onUpdateTuioCursor(c);
     };
     
-    onUpdateTuioCursor = function(updateCursor) {
-        var $updateCursor = cursors[updateCursor.getCursorId()];
-        $updateCursor.css({
-            left: updateCursor.getScreenX(screenW),
-            top: updateCursor.getScreenY(screenH)
-        });
+    onUpdateTuioCursor = function(c) {
+        var value = cursors[c.getCursorId()];
+        
+        context.clearRect(0, 20, canvas.width, canvas.height);
+        context.fillStyle = "#784545";
+        context.fillRect(mousePos.x-25, mousePos.y-25, 50, 50);
+        context.fillStyle = "#776666";
+        context.fillText(mousePos.x + ',' + mousePos.y, c.getScreenX(screenW)-20, c.getScreenY(screenH)-30);
     };
     
     onRemoveTuioCursor = function(removeCursor) {
@@ -159,7 +166,7 @@ $(function() {
     client.on("addTuioObject", onAddTuioObject);
     client.on("updateTuioObject", onUpdateTuioObject);
     client.on("removeTuioObject", onRemoveTuioObject);
-//    client.on("refresh", onRefresh);
+    client.on("refresh", onRefresh);
         client.connect();
 });
 
