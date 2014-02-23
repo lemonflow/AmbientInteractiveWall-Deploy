@@ -27,7 +27,7 @@ TuioCanvas.Main = (function() {
 
     initClient = function() {
         client = new Tuio.Client({
-            host: "http://localhost:3333"
+            host: "http://localhost:5000"
         });
         client.on("connect", onConnect);
         client.connect();
