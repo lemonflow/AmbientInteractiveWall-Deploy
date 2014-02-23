@@ -115,4 +115,4 @@ app.use(function(req, res) {
 });
 
 app.listen(4567);
-console.log('flick is listening on port 4567');
+console.log('update server listening on port 4567');
