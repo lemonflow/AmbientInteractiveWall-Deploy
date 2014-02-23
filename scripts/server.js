@@ -75,8 +75,8 @@ var connect = require('connect'),
     sockjsm = require('sockjs-client');
 
 var ws = new sockjsm.create(brokerIP+brokerPrefix);
-ws.on('connection', function() { console.log("connected to master")});
-ws.on('data',  function(data) { console.log("update module received:"+ data)});
+ws.on('connection', function() { console.log("connected to broker")});
+//ws.on('data',  function(data) { console.log("update module received:"+ data)});
 
 
 function gitPull(root, options) {
