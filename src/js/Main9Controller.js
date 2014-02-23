@@ -72,8 +72,8 @@ var Main9Controller = (function () {
         if((this.slideId <= 1 && e.type =='prev')) 
             return;
         
-        if (this.slideId=='2') 
-            this.slideId == -1;
+//        if (this.slideId=='2') 
+//            this.slideId == -1;
         
         var obj = {};
         obj['data1'] = this.slideId;
