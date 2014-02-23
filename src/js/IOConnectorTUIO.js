@@ -78,10 +78,12 @@ $(function() {
             x: evt.clientX - rect.left,
             y: evt.clientY - rect.top
         };
-        document.getElementById('debugtxt').textContent = 'Mouse MOVE: ' + mousePos.x + ',' + mousePos.y;
+//        document.getElementById('debugtxt').textContent = 'Mouse MOVE: ' + mousePos.x + ',' + mousePos.y;
         context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = "#343434";
+        context.fillStyle = "#454545";
         context.fillRect(mousePos.x-25, mousePos.y-25, 50, 50);
+        context.fillStyle = "#898989";
+        context.fillText(mousePos.x + ',' + mousePos.y, mousePos.x-20, mousePos.y-30);
     }, false);
     
     canvas.addEventListener('mouseup', function(evt) {
