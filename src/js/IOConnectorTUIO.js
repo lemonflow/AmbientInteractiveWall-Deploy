@@ -133,9 +133,9 @@ $(function() {
         
         context.clearRect(0, 20, canvas.width, canvas.height);
         context.fillStyle = "#784545";
-        context.fillRect(mousePos.x-25, mousePos.y-25, 50, 50);
+        context.fillRect(cursor.getScreenX(screenW)-20, cursor.getScreenY(screenH)-30, 50, 50);
         context.fillStyle = "#776666";
-        context.fillText(mousePos.x + ',' + mousePos.y, cursor.getScreenX(screenW)-20, cursor.getScreenY(screenH)-30);
+        context.fillText(c.getCursorId()+": "+mousePos.x + ',' + mousePos.y, cursor.getScreenX(screenW)-20, cursor.getScreenY(screenH)-30);
     };
     
     onRemoveTuioCursor = function(c) {
