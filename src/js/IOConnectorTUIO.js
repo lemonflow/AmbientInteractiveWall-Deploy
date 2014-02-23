@@ -146,14 +146,14 @@ $(function() {
     };
     
     client.on("connect", onConnect);
-    client.on("addTuioCursor", onAddTuioCursor);
-    client.on("updateTuioCursor", onUpdateTuioCursor);
-    client.on("removeTuioCursor", onRemoveTuioCursor);
-    client.on("addTuioObject", onAddTuioObject);
-    client.on("updateTuioObject", onUpdateTuioObject);
-    client.on("removeTuioObject", onRemoveTuioObject);
-    client.on("refresh", onRefresh);
-    //    client.connect();
+//    client.on("addTuioCursor", onAddTuioCursor);
+//    client.on("updateTuioCursor", onUpdateTuioCursor);
+//    client.on("removeTuioCursor", onRemoveTuioCursor);
+//    client.on("addTuioObject", onAddTuioObject);
+//    client.on("updateTuioObject", onUpdateTuioObject);
+//    client.on("removeTuioObject", onRemoveTuioObject);
+//    client.on("refresh", onRefresh);
+        client.connect();
 });
 
 
