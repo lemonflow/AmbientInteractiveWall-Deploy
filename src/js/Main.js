@@ -59,6 +59,7 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 //ref11.controller.view = ref11;
 //focusView = ref11;
 //
+
 ////particles
 var ref9 = new Main9(clientid, renderer);
 ref9.init(scene, 1024, w, h);
