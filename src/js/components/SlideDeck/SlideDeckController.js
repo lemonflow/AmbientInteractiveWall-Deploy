@@ -103,6 +103,16 @@ var SlideDeckController = (function() {
         }
     }
 
+
+    SlideDeckController.prototype.touchMove = function(posX, posY) {
+    }
+
+    SlideDeckController.prototype.touchDown = function(posX, posY) {
+    }
+
+    SlideDeckController.prototype.touchUp = function(posX, posY) {
+        InputManager.getInstance().dispatchEvent(new InputEvent("next"));
+    }
     
     return SlideDeckController;
 })();
