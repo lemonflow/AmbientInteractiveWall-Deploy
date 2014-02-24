@@ -13,6 +13,9 @@ IOConnectorWinTouch = (function () {
         document.addEventListener('touchstart', function(e) {
             e.preventDefault();
             document.getElementById('debugtxt').textContent = "touchevent";
+
+            coverflow.objects[0].position.x = 1000;
+
 //            this.touchStarted(e);
         }, false);
 
