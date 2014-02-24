@@ -127,6 +127,13 @@ var CoverflowController = (function() {
         }
     }
 
-    
+    CoverflowController.prototype.touchMove = function(posX, posY) {
+        this.view.objects[0].position.x = -2560+posX;
+    }
+
+    CoverflowController.prototype.touchDown = function(posX, posY) {
+        this.view.objects[0].position.x = -2560;
+    }
+
     return CoverflowController;
 })();

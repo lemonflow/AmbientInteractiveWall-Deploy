@@ -51,7 +51,7 @@ IOConnectorWinTouch = (function () {
 
     IOConnectorWinTouch.prototype.touchStarted = function (event) {
         //-2560 until -1280
-        coverflow.objects[0].position.x = -2560;
+
 
         var touches = event.changedTouches;
 
@@ -67,6 +67,7 @@ IOConnectorWinTouch = (function () {
             });
         }
 
+        FocusModel.instance.focusView.touchDown(touch.pageX);
         document.getElementById('debugtxt').textContent = "add "+ touch.identifier+"@"+touch.pageX;
 
     };
@@ -85,9 +86,8 @@ IOConnectorWinTouch = (function () {
                 currentTouches.splice(currentTouchIndex, 1, currentTouch);
 
                 document.getElementById('debugtxt').textContent = "move"+currentTouch.startX;
-                coverflow.objects[0].position.x = -2560+touch.pageX;
+                FocusModel.instance.focusView.touchMoved(touch.pageX);
             }
-
         }
     };
 

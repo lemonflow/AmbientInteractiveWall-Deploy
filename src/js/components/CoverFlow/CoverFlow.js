@@ -55,6 +55,8 @@
          this.controller.initOperators(this.objects, this.operators);
          this.controller.initController(document);
          this.controller.layout(this.operators.overviewLayout, 2000, this.objects);
+
+
      };
 
      return CoverFlow;
