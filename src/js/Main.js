@@ -47,17 +47,17 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 
 //coverflow
-//var ref10 = new CoverFlow(clientid, renderer);
-//ref10.init(scene);
-//ref10.controller.view = ref10;
-//focusView = ref10;
+var ref10 = new CoverFlow(clientid, renderer);
+ref10.init(scene);
+ref10.controller.view = ref10;
+focusView = ref10;
 
 //
 ////slideshow
-var ref11 = new Main11(clientid, renderer);
-ref11.init(scene);
-ref11.controller.view = ref11;
-focusView = ref11;
+//var ref11 = new Main11(clientid, renderer);
+//ref11.init(scene);
+//ref11.controller.view = ref11;
+//focusView = ref11;
 //
 ////particles
 //var ref9 = new Main9(clientid, renderer);
