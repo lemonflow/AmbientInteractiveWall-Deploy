@@ -20,6 +20,9 @@ var focusView = null;
 var syncConnection = new SyncConnectionSocketIO();
 syncConnection.startConnection();
 
+var ioTouch = new IOConnectorWinTouch();
+IOConnectorWinTouch.init();
+
 window.scene = new THREE.Scene();
 var w = 1280;
 var h = 800;
