@@ -15,7 +15,7 @@ var SyncConnectionSocketIO = (function () {
         self = this;
         FocusModel.instance.syncConnection = this;
         sockjs.onopen = function()  { 
-//            document.getElementById('debugtxt').textContent = "open: "+clientid +" via "+sockjs.protocol;
+            document.getElementById('debugtxt').textContent = "open: "+clientid +" via "+sockjs.protocol;
             self.stateChange({'init':1}, null);
         };
         

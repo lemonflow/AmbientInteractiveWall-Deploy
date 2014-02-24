@@ -12,7 +12,8 @@ IOConnectorWinTouch = (function () {
 
         document.addEventListener('touchstart', function(e) {
             e.preventDefault();
-            this.touchStarted(e);
+            document.getElementById('debugtxt').textContent = "touchevent"+JSON.stringify(e);
+//            this.touchStarted(e);
         }, false);
 
 //        document.body.addEventListener('touchmove', function(event) {
