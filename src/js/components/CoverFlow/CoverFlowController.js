@@ -101,8 +101,8 @@ var CoverflowController = (function() {
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
         
-//        new TWEEN.Tween(this.view.camera.position).to({
-//            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+        new TWEEN.Tween(this.view.camera.position).to({
+            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
 
         for(var i=0; i<this.view.objects.length;i++){
              new TWEEN.Tween(this.view.objects[i].material)
@@ -117,8 +117,8 @@ var CoverflowController = (function() {
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
         
-//        new TWEEN.Tween(this.view.camera.position).to({
-//            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+        new TWEEN.Tween(this.view.camera.position).to({
+            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
         for(var i=0; i<this.view.objects.length;i++){
              new TWEEN.Tween(this.view.objects[i].material)
                  .to({opacity: (i==this.slideId)?1.0:0.5}, 1000)
