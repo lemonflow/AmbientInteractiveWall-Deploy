@@ -45,7 +45,7 @@ var Main8 = (function () {
         var material_base = new THREE.MeshLambertMaterial( parameters );
         renderer.initMaterial( material_base, scene.__lights, scene.fog );
         
-        mesh = new THREE.Mesh( new THREE.CubeGeometry( 1280, 400, 1 ), material_base );
+        mesh = new THREE.Mesh( new THREE.CubeGeometry( 8000, 400, 1 ), material_base );
         mesh.position.x =  0;
         mesh.position.y =  0;
         mesh.position.z = 0;
