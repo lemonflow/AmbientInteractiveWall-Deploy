@@ -4,15 +4,15 @@ var IOConnectorWinTouch;
 IOConnectorWinTouch = (function () {
 
     function IOConnectorWinTouch() {
-        document.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('debugtxt').textContent = "clickevent";
-            coverflow.objects[0].position.x = 2200;
-         }.bind(this), false);
+//        document.addEventListener('click', function(e) {
+//            e.preventDefault();
+//            document.getElementById('debugtxt').textContent = "clickevent";
+//            coverflow.objects[0].position.x = 2200;
+//         }.bind(this), false);
 
         document.addEventListener('touchstart', function(e) {
             e.preventDefault();
-            document.getElementById('debugtxt').textContent = "touchevent"+JSON.stringify(e);
+            document.getElementById('debugtxt').textContent = "touchevent";
 //            this.touchStarted(e);
         }, false);
 
