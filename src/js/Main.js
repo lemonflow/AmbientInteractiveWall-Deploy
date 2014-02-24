@@ -40,17 +40,17 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 //focusView= ref6;
 //
 ////video
-//var ref8 = new Main8(clientid, renderer);
-//ref8.init(scene, 1024, w, h);
-//ref8.controller.view = ref8;
-//focusView= ref8;
+var ref8 = new Main8(clientid, renderer);
+ref8.init(scene, 1024, w, h);
+ref8.controller.view = ref8;
+focusView= ref8;
 
 
 //coverflow
-var ref10 = new CoverFlow(clientid, renderer);
-ref10.init(scene);
-ref10.controller.view = ref10;
-focusView = ref10;
+//var ref10 = new CoverFlow(clientid, renderer);
+//ref10.init(scene);
+//ref10.controller.view = ref10;
+//focusView = ref10;
 
 //
 ////slideshow
