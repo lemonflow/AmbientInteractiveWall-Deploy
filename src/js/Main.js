@@ -30,8 +30,8 @@ renderer.autoClear = false;
 renderer.setSize(w, h);
 document.getElementById( 'container' ).appendChild( renderer.domElement );
 
-var background = new Background(clientid,renderer);
-background.init(); //own renderloop
+//var background = new Background(clientid,renderer);
+//background.init(); //own renderloop
 //
 ////floorplan
 //var ref6 = new FloorPlan(clientid, renderer);
@@ -60,10 +60,10 @@ background.init(); //own renderloop
 //focusView = ref11;
 //
 ////particles
-//var ref9 = new Main9(clientid, renderer);
-//ref9.init(scene, 1024, w, h);
-//ref9.controller.view = ref9;
-//focusView = ref9;
+var ref9 = new Main9(clientid, renderer);
+ref9.init(scene, 1024, w, h);
+ref9.controller.view = ref9;
+focusView = ref9;
 
 
 FocusModel.instance.activateFocus(focusView.controller); //main receives user input
