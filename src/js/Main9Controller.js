@@ -94,7 +94,7 @@ var Main9Controller = (function () {
                                           });
         
         new TWEEN.Tween(this.view.camera.position).to({ 
-            x: 0, y: 0, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+            x: 0, y: 0, z: 0}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
         
         for(var i=0; i<this.view.objects.length;i++){
              this.view.objects[i].material.opacity = 0;
