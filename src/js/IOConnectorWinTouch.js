@@ -86,7 +86,7 @@ IOConnectorWinTouch = (function () {
                 currentTouches.splice(currentTouchIndex, 1, currentTouch);
 
                 document.getElementById('debugtxt').textContent = "move"+currentTouch.startX;
-                FocusModel.instance.focusView.touchMoved(touch.pageX);
+                FocusModel.instance.focusView.touchMove(touch.pageX);
             }
         }
     };
