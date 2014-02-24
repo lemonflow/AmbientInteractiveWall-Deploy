@@ -1,11 +1,11 @@
-var Main10Controller = (function() {
+var CoverflowController = (function() {
     
-    Main10Controller.prototype = Object.create(OperatorStates.prototype);
-    Main10Controller.prototype.constructor = Main10Controller;
+    CoverflowController.prototype = Object.create(OperatorStates.prototype);
+    CoverflowController.prototype.constructor = CoverflowController;
     
     var _view = null;
     
-    function Main10Controller() {
+    function CoverflowController() {
         OperatorStates.call(this);
         
         this.needsContinuousUpdate = false;
@@ -20,7 +20,7 @@ var Main10Controller = (function() {
                 changes:
                 [
                     {type:"focusactivate",
-                     transition:[Main10Controller.prototype.transition1],
+                     transition:[CoverflowController.prototype.transition1],
                      newState:"state0"}
                 ]
             },
@@ -29,7 +29,7 @@ var Main10Controller = (function() {
                 changes:
                 [
                     {type:"next",
-                     transition:[Main10Controller.prototype.transition1],
+                     transition:[CoverflowController.prototype.transition1],
                      newState:"state0"}
                 ]
             },
@@ -38,14 +38,14 @@ var Main10Controller = (function() {
                 changes:
                 [
                     {type:"prev",
-                     transition:[Main10Controller.prototype.transition1],
+                     transition:[CoverflowController.prototype.transition1],
                      newState:"state0"}
                 ]
             }
         ];
     }
     
-    Main10Controller.prototype.initController = function(document) { 
+    CoverflowController.prototype.initController = function(document) {
         document.getElementById(''+1).addEventListener('click', function(e) { 
                 InputManager.getInstance().dispatchEvent(new InputEvent("prev"));
             }.bind(this), false);
@@ -55,12 +55,12 @@ var Main10Controller = (function() {
             }.bind(this), false);
     }
     
-    Main10Controller.prototype.syncTransition = function(obj) {
+    CoverflowController.prototype.syncTransition = function(obj) {
         this.slideId = obj.data1;
         this.transitionSync(new InputEvent(obj.data2));
     }
     
-   Main10Controller.prototype.initOperators = function(objects, operators) {
+   CoverflowController.prototype.initOperators = function(objects, operators) {
         var groupid = 0;
         for (var i = 0; i < objects.length; i++) {
             var object = objects[i];
@@ -73,7 +73,7 @@ var Main10Controller = (function() {
         }
     }
     
-    Main10Controller.prototype.layout = function(operators, duration,objects) {
+    CoverflowController.prototype.layout = function(operators, duration,objects) {
         for (var i = 0; i < objects.length; i++) {
             var object = objects[i];
             var target = operators[i];
@@ -93,7 +93,7 @@ var Main10Controller = (function() {
     }
     
     //go through slideshow
-    Main10Controller.prototype.transition1 = function(e) {
+    CoverflowController.prototype.transition1 = function(e) {
         var obj = {};
         obj['data1'] = this.slideId;
         obj['data2'] = e.type;
@@ -113,7 +113,7 @@ var Main10Controller = (function() {
     }
     
         //go through slideshow triggered by other call
-    Main10Controller.prototype.transitionSync = function(e) {
+    CoverflowController.prototype.transitionSync = function(e) {
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
         
@@ -128,5 +128,5 @@ var Main10Controller = (function() {
     }
 
     
-    return Main10Controller;
+    return CoverflowController;
 })();

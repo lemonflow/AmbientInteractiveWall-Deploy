@@ -10,7 +10,7 @@
      var fullWidth = window.innerWidth
      var fullHeight = window.innerHeight;
 
-     function Main10(idx, r) {
+     function CoverFlow(idx, r) {
          this.id = idx;
          this.camera = null;
          this.objects = [];
@@ -26,10 +26,10 @@
          fullWidth = screenCount * w;
          fullHeight = h;
 
-         this.controller = new Main10Controller();
+         this.controller = new CoverflowController();
      }
 
-     Main10.prototype.init = function (scene) {
+     CoverFlow.prototype.init = function (scene) {
          camera = new THREE.PerspectiveCamera(75, w / h, 1, 10000);
          //        camera.position.x = 0; camera.position.y = -700; camera.position.z = 600;
          //        camera.position.x = -200; camera.position.y = 0; camera.position.z = 400;
@@ -37,9 +37,9 @@
          camera.setViewOffset(fullWidth, fullHeight, offsetX, 0, w, h);
          this.camera = camera;
 
-         for (var i = 0; i < Main10Data.length; i++) {
+         for (var i = 0; i < CoverflowData.length; i++) {
              var texture, material, plane;
-             var item = Main10Data[i];
+             var item = CoverflowData[i];
              texture = THREE.ImageUtils.loadTexture("assets/" + item[1]);
              material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
              material.opacity = (i == 0) ? 0.9 : 0;
@@ -57,5 +57,5 @@
          this.controller.layout(this.operators.overviewLayout, 2000, this.objects);
      };
 
-     return Main10;
+     return CoverFlow;
  })();

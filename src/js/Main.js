@@ -21,7 +21,7 @@ var syncConnection = new SyncConnectionSocketIO();
 syncConnection.startConnection();
 
 var ioTouch = new IOConnectorWinTouch();
-IOConnectorWinTouch.init();
+ioTouch.init();
 
 window.scene = new THREE.Scene();
 var w = 1280;
@@ -56,10 +56,10 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 
 //coverflow
-var ref10 = new CoverFlow(clientid, renderer);
-ref10.init(scene);
-ref10.controller.view = ref10;
-focusView = ref10;
+var coverflow = new CoverFlow(clientid, renderer);
+coverflow.init(scene);
+coverflow.controller.view = coverflow;
+focusView = coverflow;
 
 
 //slideshow

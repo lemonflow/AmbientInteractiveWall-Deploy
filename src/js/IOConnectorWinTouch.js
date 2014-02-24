@@ -4,9 +4,14 @@ var IOConnectorWinTouch;
 IOConnectorWinTouch = (function () {
 
     function IOConnectorWinTouch() {
-        document.body.addEventListener('touchstart', function(e) {
+        document.addEventListener('click', function(e) {
             e.preventDefault();
-            this.touchStarted(event);
+            coverflow.objects[0].position.x = 2200;
+         }.bind(this), false);
+
+        document.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.touchStarted(e);
         }, false);
 
 //        document.body.addEventListener('touchmove', function(event) {
@@ -15,11 +20,13 @@ IOConnectorWinTouch = (function () {
     }
 
     IOConnectorWinTouch.prototype.init = function () {
-        CoverFlow.objects[3].position.x = 200;
+//        CoverFlow.objects[3].position.x = 2200;
 
     };
 
     IOConnectorWinTouch.prototype.touchStarted = function (event) {
+        coverflow.objects[0].position.x = 200;
+
         var touches = event.changedTouches;
 
         for (var i=0; i < touches.length; i++) {
