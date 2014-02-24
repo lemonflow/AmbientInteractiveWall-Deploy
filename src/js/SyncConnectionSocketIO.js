@@ -15,14 +15,14 @@ var SyncConnectionSocketIO = (function () {
         self = this;
         FocusModel.instance.syncConnection = this;
         sockjs.onopen = function()  { 
-            document.getElementById('debugtxt').textContent = "open: "+clientid +" via "+sockjs.protocol;
+//            document.getElementById('debugtxt').textContent = "open: "+clientid +" via "+sockjs.protocol;
             self.stateChange({'init':1}, null);
         };
         
         sockjs.onmessage = function(e) { //receiving
             console.log("r: "+e.data);
             var obj = JSON.parse(e.data);
-            document.getElementById('debugtxt').textContent = "received: "+e.data;
+//            document.getElementById('debugtxt').textContent = "received: "+e.data;
             if(obj['id'] != clientid && !obj.hasOwnProperty('init')) {
                 FocusModel.instance.focusView.syncTransition(obj);
             }
