@@ -85,7 +85,7 @@ IOConnectorWinTouch = (function () {
                 currentTouches.splice(currentTouchIndex, 1, currentTouch);
 
                 document.getElementById('debugtxt').textContent = "move"+currentTouch.startX;
-                coverflow.objects[0].position.x = -2560-(currentTouch.startX)+touch.pageX;
+//                coverflow.objects[0].position.x = -2560-(currentTouch.startX)+touch.pageX;
             }
 
         }
