@@ -34,10 +34,10 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 //background.init(); //own renderloop
 //
 ////floorplan
-var ref6 = new FloorPlan(clientid, renderer);
-ref6.init(scene);
-ref6.controller.view = ref6;
-focusView= ref6;
+//var ref6 = new FloorPlan(clientid, renderer);
+//ref6.init(scene);
+//ref6.controller.view = ref6;
+//focusView= ref6;
 //
 ////video
 //var ref8 = new Main8(clientid, renderer);
@@ -54,10 +54,10 @@ focusView= ref6;
 
 //
 ////slideshow
-//var ref11 = new Main11(clientid, renderer);
-//ref11.init(scene);
-//ref11.controller.view = ref11;
-//focusView = ref11;
+var ref11 = new Main11(clientid, renderer);
+ref11.init(scene);
+ref11.controller.view = ref11;
+focusView = ref11;
 //
 ////particles
 //var ref9 = new Main9(clientid, renderer);
