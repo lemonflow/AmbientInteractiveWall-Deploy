@@ -14,7 +14,7 @@ IOConnectorWinTouch = (function () {
             e.preventDefault();
             document.getElementById('debugtxt').textContent = "touchevent";
 
-            coverflow.objects[0].position.x = 1000;
+            coverflow.objects[0].position.x = -3000;
 
 //            this.touchStarted(e);
         }, false);
