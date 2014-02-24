@@ -34,16 +34,16 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 //background.init(); //own renderloop
 //
 ////floorplan
-//var ref6 = new FloorPlan(clientid, renderer);
-//ref6.init(scene);
-//ref6.controller.view = ref6;
-//focusView= ref6;
+var ref6 = new FloorPlan(clientid, renderer);
+ref6.init(scene);
+ref6.controller.view = ref6;
+focusView= ref6;
 //
 ////video
-var ref8 = new Main8(clientid, renderer);
-ref8.init(scene, 1024, w, h);
-ref8.controller.view = ref8;
-focusView= ref8;
+//var ref8 = new Main8(clientid, renderer);
+//ref8.init(scene, 1024, w, h);
+//ref8.controller.view = ref8;
+//focusView= ref8;
 
 
 //coverflow
