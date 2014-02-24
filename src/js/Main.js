@@ -53,10 +53,10 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 
 //coverflow
-//var ref10 = new CoverFlow(clientid, renderer);
-//ref10.init(scene);
-//ref10.controller.view = ref10;
-//focusView = ref10;
+var ref10 = new CoverFlow(clientid, renderer);
+ref10.init(scene);
+ref10.controller.view = ref10;
+focusView = ref10;
 
 
 //slideshow
