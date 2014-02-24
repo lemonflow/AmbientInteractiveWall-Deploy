@@ -87,7 +87,7 @@ var Main9Controller = (function () {
 //        FocusModel.instance.syncConnection.stateChange(obj, e);
         THREE.ImageUtils.loadTexture.call(Main9ControllerThis, 
 //                                          './assets/wide'+this.slideId+'.png', 
-                                           './assets/wide8.png', 
+                                           './assets/wide0.png',
                                               new THREE.UVMapping(),  function(texture) {
                                               Main9ControllerThis.view.assignTextureMap(texture);
                                               Main9ControllerThis.view.simulationTrigger(texture);
