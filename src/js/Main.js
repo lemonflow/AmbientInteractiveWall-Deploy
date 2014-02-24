@@ -63,10 +63,10 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 
 //slideshow
-//var ref11 = new SlideDeck(clientid, renderer);
-//ref11.init(scene);
-//ref11.controller.view = ref11;
-//focusView = ref11;
+var ref11 = new SlideDeck(clientid, renderer);
+ref11.init(scene);
+ref11.controller.view = ref11;
+focusView = ref11;
 
 
 //particles
