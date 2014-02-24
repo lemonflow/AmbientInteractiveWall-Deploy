@@ -1,13 +1,13 @@
-var Main11 = (function () {
+var SlideDeck = (function () {
     var renderer;
     var camera;
     
     var windowHalfX = window.innerWidth / 2;
     var windowHalfY = window.innerHeight / 2;
-    var fullWidth =  window.innerWidth
+    var fullWidth =  window.innerWidth;
     var fullHeight = window.innerHeight;
     
-    function Main11(idx, r) {
+    function SlideDeck(idx, r) {
         this.id = idx;
         this.camera = null;
         this.objects = [];
@@ -23,18 +23,18 @@ var Main11 = (function () {
         fullWidth = screenCount*w;
         fullHeight = h;
         
-        this.controller = new Main11Controller();
+        this.controller = new SlideDeckController();
     }
     
-    Main11.prototype.init = function(scene) {
+    SlideDeck.prototype.init = function(scene) {
         camera = new THREE.PerspectiveCamera( 75, w / h, 1, 10000 );
         var offsetX = (clientid-50)*w;
         camera.setViewOffset( fullWidth, fullHeight, offsetX, 0, w, h );
         this.camera = camera;
         
-        for (var i = 0; i < Main11Data.length; i++) {
+        for (var i = 0; i < SlideDeckData.length; i++) {
             var texture, material, plane;
-            var item = Main11Data[i];
+            var item = SlideDeckData[i];
             texture = THREE.ImageUtils.loadTexture( "assets/" + item[1] );
             material = new THREE.MeshBasicMaterial({ map : texture, transparent:true });
             material.opacity = (i==0)?1:0;
@@ -52,5 +52,5 @@ var Main11 = (function () {
 //        this.controller.layout(this.operators.overviewLayout, 2000, this.objects);
     };
     
-    return Main11;
+    return SlideDeck;
 })();

@@ -1,4 +1,4 @@
-var Main11Data = [
+var SlideDeckData = [
     [ "S coupe2", "wide8.png"],    
     [ "S coupe2", "wide0.png"],
     [ "S coupe2", "wide1.png"],

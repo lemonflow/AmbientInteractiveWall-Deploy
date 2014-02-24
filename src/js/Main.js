@@ -47,24 +47,24 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 
 //coverflow
-//var ref10 = new CoverFlow(clientid, renderer);
-//ref10.init(scene);
-//ref10.controller.view = ref10;
-//focusView = ref10;
+var ref10 = new CoverFlow(clientid, renderer);
+ref10.init(scene);
+ref10.controller.view = ref10;
+focusView = ref10;
 
-//
-////slideshow
-var ref11 = new Main11(clientid, renderer);
+
+//slideshow
+var ref11 = new SlideDeck(clientid, renderer);
 ref11.init(scene);
 ref11.controller.view = ref11;
 focusView = ref11;
-//
 
-////particles
-//var ref9 = new Main9(clientid, renderer);
-//ref9.init(scene, 1024, w, h);
-//ref9.controller.view = ref9;
-//focusView = ref9;
+
+//particles
+var ref9 = new Main9(clientid, renderer);
+ref9.init(scene, 1024, w, h);
+ref9.controller.view = ref9;
+focusView = ref9;
 
 
 FocusModel.instance.activateFocus(focusView.controller); //main receives user input

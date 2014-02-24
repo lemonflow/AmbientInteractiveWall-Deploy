@@ -94,9 +94,9 @@ var Main9 = (function () {
         plane.position.z = -300;
         scene.add(plane);
         
-        for (var i = 0; i < Main11Data.length; i++) {
+        for (var i = 0; i < SlideDeckData.length; i++) {
             var texture, material, plane;
-            var item = Main11Data[i];
+            var item = SlideDeckData[i];
             texture = THREE.ImageUtils.loadTexture( "assets/" + item[1] );
             material = new THREE.MeshBasicMaterial({ map : texture, transparent:true });
             material.opacity = (i==0)?0:0;

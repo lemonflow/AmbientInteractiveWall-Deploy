@@ -1,11 +1,11 @@
-var Main11Controller = (function() {
+var SlideDeckController = (function() {
     
-    Main11Controller.prototype = Object.create(OperatorStates.prototype);
-    Main11Controller.prototype.constructor = Main11Controller;
+    SlideDeckController.prototype = Object.create(OperatorStates.prototype);
+    SlideDeckController.prototype.constructor = SlideDeckController;
     
     var _view = null;
     
-    function Main11Controller() {
+    function SlideDeckController() {
         OperatorStates.call(this);
         
         this.needsContinuousUpdate = false;
@@ -19,7 +19,7 @@ var Main11Controller = (function() {
                 changes:
                 [
                     {type:"focusactivate",
-                     transition:[Main11Controller.prototype.transition1],
+                     transition:[SlideDeckController.prototype.transition1],
                      newState:"state0"}
                 ]
             },
@@ -28,7 +28,7 @@ var Main11Controller = (function() {
                 changes:
                 [
                     {type:"next",
-                     transition:[Main11Controller.prototype.transition1],
+                     transition:[SlideDeckController.prototype.transition1],
                      newState:"state0"}
                 ]
             },
@@ -37,14 +37,14 @@ var Main11Controller = (function() {
                 changes:
                 [
                     {type:"prev",
-                     transition:[Main11Controller.prototype.transition1],
+                     transition:[SlideDeckController.prototype.transition1],
                      newState:"state0"}
                 ]
             }
         ];
     }
     
-    Main11Controller.prototype.initController = function(document) { 
+    SlideDeckController.prototype.initController = function(document) {
         document.getElementById(''+1).addEventListener('click', function(e) { 
                 InputManager.getInstance().dispatchEvent(new InputEvent("prev"));
             }.bind(this), false);
@@ -54,14 +54,14 @@ var Main11Controller = (function() {
             }.bind(this), false);
     }
     
-    Main11Controller.prototype.syncTransition = function(obj) {
+    SlideDeckController.prototype.syncTransition = function(obj) {
 //        if(!obj.hasOwnProperty('data1') || !obj.')) return;
         this.slideId = obj.data1;
         this.transitionSync(new InputEvent(obj.data2));
     }
     
     //go through slideshow
-    Main11Controller.prototype.transition1 = function(e) {
+    SlideDeckController.prototype.transition1 = function(e) {
         var obj = {};
         obj['data1'] = this.slideId;
         obj['data2'] = e.type;
@@ -69,7 +69,7 @@ var Main11Controller = (function() {
       FocusModel.instance.syncConnection.stateChange(obj, e);
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
-        if(this.slideId >= Main11Data.length) this.slideId =0;
+        if(this.slideId >= SlideDeckData.length) this.slideId =0;
            
         console.log(this.view.objects.length);
         
@@ -84,14 +84,14 @@ var Main11Controller = (function() {
     }
     
         //go through slideshow triggered by other call
-    Main11Controller.prototype.transitionSync = function(e) {
+    SlideDeckController.prototype.transitionSync = function(e) {
         var obj = {};
         obj['data1'] = this.slideId;
         obj['data2'] = e.type;
         
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
-        if(this.slideId >= Main11Data.length) this.slideId =0;
+        if(this.slideId >= SlideDeckData.length) this.slideId =0;
         
         new TWEEN.Tween(this.view.camera.position).to({ 
             x: 0, y: 0, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
@@ -104,5 +104,5 @@ var Main11Controller = (function() {
     }
 
     
-    return Main11Controller;
+    return SlideDeckController;
 })();
