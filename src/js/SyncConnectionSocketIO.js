@@ -1,6 +1,7 @@
 var SyncConnectionSocketIO = (function () {
     "use strict";
     var sockjs = null;
+    var self = null;
     
     function SyncConnectionSocketIO() {
         this.sockjs_url = 'http://192.168.3.56:3000/echo';
