@@ -54,17 +54,17 @@ focusView = ref10;
 
 
 //slideshow
-var ref11 = new SlideDeck(clientid, renderer);
-ref11.init(scene);
-ref11.controller.view = ref11;
-focusView = ref11;
+//var ref11 = new SlideDeck(clientid, renderer);
+//ref11.init(scene);
+//ref11.controller.view = ref11;
+//focusView = ref11;
 
 
 //particles
-var ref9 = new Main9(clientid, renderer);
-ref9.init(scene, 1024, w, h);
-ref9.controller.view = ref9;
-focusView = ref9;
+//var ref9 = new Main9(clientid, renderer);
+//ref9.init(scene, 1024, w, h);
+//ref9.controller.view = ref9;
+//focusView = ref9;
 
 
 FocusModel.instance.activateFocus(focusView.controller); //main receives user input
