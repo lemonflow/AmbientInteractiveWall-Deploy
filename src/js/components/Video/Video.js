@@ -1,4 +1,4 @@
-var Main8 = (function () {
+var Video = (function () {
     var camera;
     var windowHalfX = window.innerWidth / 2;
     var windowHalfY = window.innerHeight / 2;
@@ -8,7 +8,7 @@ var Main8 = (function () {
     var video, texture, material, mesh;
   
     
-    function Main8(idx, r) {
+    function Video(idx, r) {
         this.id = idx;
         this.camera = null;
         this.objects = [];
@@ -19,10 +19,10 @@ var Main8 = (function () {
         fullWidth = screenCount*w;
         fullHeight = h;
         
-        this.controller = new Main8Controller(this);
+        this.controller = new VideoController(this);
     }
     
-    Main8.prototype.init = function(scene) {
+    Video.prototype.init = function(scene) {
         camera = new THREE.PerspectiveCamera( 40, w / h, 1, 10000 );
         camera.position.z = 510;
         var offsetX = (clientid-50)*w;
@@ -61,11 +61,11 @@ var Main8 = (function () {
     };
     
     
-    Main8.prototype.update = function() {
+    Video.prototype.update = function() {
         if ( video.readyState === video.HAVE_ENOUGH_DATA ) {
             if ( texture ) texture.needsUpdate = true;
         }
     };
     
-    return Main8;
+    return Video;
 })();

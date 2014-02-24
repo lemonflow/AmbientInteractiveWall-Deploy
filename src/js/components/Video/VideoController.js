@@ -1,11 +1,11 @@
-var Main8Controller = (function () {
+var VideoController = (function () {
     
-    Main8Controller.prototype = Object.create(OperatorStates.prototype);
-    Main8Controller.prototype.constructor = Main8Controller;
+    VideoController.prototype = Object.create(OperatorStates.prototype);
+    VideoController.prototype.constructor = VideoController;
     
     var _view = null;
     
-    function Main8Controller() {
+    function VideoController() {
         OperatorStates.call(this);
         
         this.slideId = -1;
@@ -20,7 +20,7 @@ var Main8Controller = (function () {
                 changes:
                 [
                     {type:"focusactivate",
-                     transition:[Main8Controller.prototype.transition1],
+                     transition:[VideoController.prototype.transition1],
                      newState:"state0"}
                 ]
             },
@@ -29,14 +29,14 @@ var Main8Controller = (function () {
                 changes:
                 [
                     {type:"play",
-                     transition:[Main8Controller.prototype.transition2],
+                     transition:[VideoController.prototype.transition2],
                      newState:"state0"}
                 ]
             }
         ];
     }
     
-    Main8Controller.prototype.initController = function() {
+    VideoController.prototype.initController = function() {
         document.getElementById(''+1).addEventListener('click', function(e) { 
             InputManager.getInstance().dispatchEvent(new InputEvent("play"));
         }.bind(this), false);
@@ -44,16 +44,16 @@ var Main8Controller = (function () {
          this.media = document.getElementById('video');
     }
     
-    Main8Controller.prototype.syncTransition = function(obj) {
+    VideoController.prototype.syncTransition = function(obj) {
         this.slideId = obj.data1;
         this.transitionSync(new InputEvent(obj.data2));
     }
     
-    Main8Controller.prototype.initOperators = function(objects, operators) {}
-    Main8Controller.prototype.layout = function(operators, duration,objects) {}
+    VideoController.prototype.initOperators = function(objects, operators) {}
+    VideoController.prototype.layout = function(operators, duration,objects) {}
     
     //actual states
-    Main8Controller.prototype.transition1 = function(e) {
+    VideoController.prototype.transition1 = function(e) {
         Main8ControllerThis = this;
         var obj = {};
         obj['data1'] = this.slideId;
@@ -76,7 +76,7 @@ var Main8Controller = (function () {
         
     }
         
-    Main8Controller.prototype.transition2 = function(e) {
+    VideoController.prototype.transition2 = function(e) {
         var obj = {};
         FocusModel.instance.syncConnection.stateChange(obj, e);
         
@@ -92,7 +92,7 @@ var Main8Controller = (function () {
     }
     
     //receiving
-    Main8Controller.prototype.transitionSync = function(e) {
+    VideoController.prototype.transitionSync = function(e) {
         new TWEEN.Tween(this.view.objects[0].material)
             .to({opacity: 1}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
         
@@ -103,7 +103,7 @@ var Main8Controller = (function () {
             .to({ x: 0, y: 10, z: 493}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
         document.getElementById( 'video' ).play();
     }
-    return Main8Controller;
+    return VideoController;
     
 })();
 
@@ -127,18 +127,18 @@ var Main8Controller = (function () {
 //
 //
 ////Controlling the Main View's Interaction
-//var Main8Controller = (function () {
+//var VideoController = (function () {
 //    "use strict";
 //    var oldState = "state0";
 //    var state = "state0";
 //    var spread = 200;
 //    
-//    function Main8Controller(v) {
+//    function VideoController(v) {
 //        this.view = v;
 //        
 //    }
 //    
-//    Main8Controller.prototype.initController = function(document) {
+//    VideoController.prototype.initController = function(document) {
 //        //general mouse clicks
 //        document.addEventListener('click', function(e) { this.onEvent(e); }.bind(this), true);
 //        
@@ -148,7 +148,7 @@ var Main8Controller = (function () {
 //            t.addEventListener('click', function(e) { this.executeTransition(e.target.id, true); }.bind(this), false);
 //        }
 //    }
-//    Main8Controller.prototype.executeTransition = function(transitionId, sendUpdate) {
+//    VideoController.prototype.executeTransition = function(transitionId, sendUpdate) {
 //        oldState = state;
 //        switch(transitionId) {
 //            case '1': this.transition1(); break;
@@ -160,23 +160,23 @@ var Main8Controller = (function () {
 //            syncConnection.sendState({'type':'transition', '0':oldState,'1':state,'2':transitionId});
 //    }
 //    
-//    Main8Controller.prototype.onEvent = function(e) {
+//    VideoController.prototype.onEvent = function(e) {
 //        console.log(e.type);
 //        //        if(e.type=='click') sync.clientc.send({'type':e.type,'0':e.x,'1':e.y});
 //    }
 //    
 //    //____________________
 //    
-//    Main8Controller.prototype.initOperators = function(objects, operators) {
+//    VideoController.prototype.initOperators = function(objects, operators) {
 //    }
 //    
-//    Main8Controller.prototype.layout = function(operators, duration,objects) {
+//    VideoController.prototype.layout = function(operators, duration,objects) {
 //    }
 //    
 //    //__________________
 //    
 //    
-//    Main8Controller.prototype.transition1 = function() {
+//    VideoController.prototype.transition1 = function() {
 //        state = "state1";
 //        new TWEEN.Tween(this.view.objects[0].material).to({opacity: 1}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 //        new TWEEN.Tween(this.view.camera.position).to({ x: 0, y: 0, z: 550}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
@@ -186,18 +186,18 @@ var Main8Controller = (function () {
 //        media.currentTime = 0; // Seek to 122 seconds
 //    }
 //    
-//    Main8Controller.prototype.transition2 = function() {
+//    VideoController.prototype.transition2 = function() {
 //        state = "state2";
 //        new TWEEN.Tween(this.view.objects[0].material).to({opacity: 1}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 //        new TWEEN.Tween(this.view.camera.position).to({ x: 0, y: 10, z: 500}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
 //        document.getElementById( 'video' ).play();
 //    }
 //    
-//    Main8Controller.prototype.transition3 = function() {
+//    VideoController.prototype.transition3 = function() {
 //        state = "state3";
 //        
 //        new TWEEN.Tween(this.view.objects[0].material).to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 //    }
 //    
-//    return Main8Controller;
+//    return VideoController;
 //})();
