@@ -1,5 +1,3 @@
-requestFullScreen();
-
 //client
 var clientid = getUrlVars()["id"]==undefined?50:getUrlVars()["id"];
 
