@@ -56,17 +56,17 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 
 //coverflow
-var coverflow = new CoverFlow(clientid, renderer);
-coverflow.init(scene);
-coverflow.controller.view = coverflow;
-focusView = coverflow;
+//var coverflow = new CoverFlow(clientid, renderer);
+//coverflow.init(scene);
+//coverflow.controller.view = coverflow;
+//focusView = coverflow;
 
 
 //slideshow
-//var ref11 = new SlideDeck(clientid, renderer);
-//ref11.init(scene);
-//ref11.controller.view = ref11;
-//focusView = ref11;
+var ref11 = new SlideDeck(clientid, renderer);
+ref11.init(scene);
+ref11.controller.view = ref11;
+focusView = ref11;
 
 
 //particles
