@@ -75,8 +75,9 @@ focusView = ref11;
 //ref9.controller.view = ref9;
 //focusView = ref9;
 
+if(focusView != null && focusView.hasOwnProperty("controller"))
+    FocusModel.instance.activateFocus(focusView.controller); //main receives user input
 
-FocusModel.instance.activateFocus(focusView.controller); //main receives user input
 //focusView.controller.controls = new THREE.TrackballControls(focusView.camera,  renderer.domElement);
 
 

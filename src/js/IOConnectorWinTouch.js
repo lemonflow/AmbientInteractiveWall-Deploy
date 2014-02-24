@@ -3,6 +3,9 @@
 var IOConnectorWinTouch;
 IOConnectorWinTouch = (function () {
     var currentTouches = new Array;
+    var pressDownTime = 0;
+    var pressDuration = 0;
+
 
 
     function IOConnectorWinTouch() {
@@ -69,6 +72,7 @@ IOConnectorWinTouch = (function () {
 
         FocusModel.instance.focusView.touchDown(touch.pageX);
         document.getElementById('debugtxt').textContent = "add "+ touch.identifier+"@"+touch.pageX;
+        pressDownTime = new Date().getTime();
 
     };
 
@@ -101,10 +105,15 @@ IOConnectorWinTouch = (function () {
             if (currentTouchIndex >= 0) {
                 var currentTouch = currentTouches[currentTouchIndex];
                 currentTouches.splice(currentTouchIndex, 1);
-                document.getElementById('debugtxt').textContent = "remove "+currentTouchIndex;
+//                document.getElementById('debugtxt').textContent = "remove "+currentTouchIndex;
+
+                pressDuration = (new Date().getTime() - pressDownTime);
+                document.getElementById('debugtxt').textContent = "press Duration "+pressDuration;
+                if(pressDuration>50) FocusModel.instance.focusView.touchUp(touch.pageX);
+
             }
 
-            FocusModel.instance.focusView.touchUp(touch.pageX);
+
         }
     };
 
