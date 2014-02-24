@@ -63,13 +63,12 @@ var CoverflowController = (function() {
    CoverflowController.prototype.initOperators = function(objects, operators) {
         var groupid = 0;
         for (var i = 0; i < objects.length; i++) {
-            var object = objects[i];
-            var object = new THREE.Object3D();
-            object.position.x = 1000*i;
-            object.position.y = 0 //100+200*i;
-            object.position.z = 0;
-            object.rotation.x = Math.PI/2;
-            operators.overviewLayout.push(object);
+            var referenceObj = new THREE.Object3D();
+            referenceObj.position.x = 1000*i;
+            referenceObj.position.y = 0 //100+200*i;
+            referenceObj.position.z = 0;
+            referenceObj.rotation.x = Math.PI/2;
+            operators.overviewLayout.push(referenceObj);
         }
     }
     
@@ -102,8 +101,9 @@ var CoverflowController = (function() {
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
         
-        new TWEEN.Tween(this.view.camera.position).to({ 
-            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+//        new TWEEN.Tween(this.view.camera.position).to({
+//            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+
         for(var i=0; i<this.view.objects.length;i++){
              new TWEEN.Tween(this.view.objects[i].material)
                  .to({opacity: (i==this.slideId)?1.0:0.5}, 1000)
@@ -117,8 +117,8 @@ var CoverflowController = (function() {
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
         
-        new TWEEN.Tween(this.view.camera.position).to({ 
-            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+//        new TWEEN.Tween(this.view.camera.position).to({
+//            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
         for(var i=0; i<this.view.objects.length;i++){
              new TWEEN.Tween(this.view.objects[i].material)
                  .to({opacity: (i==this.slideId)?1.0:0.5}, 1000)
@@ -133,6 +133,9 @@ var CoverflowController = (function() {
 
     CoverflowController.prototype.touchDown = function(posX, posY) {
         this.view.objects[0].position.x = -2560;
+    }
+
+    CoverflowController.prototype.touchUp = function(posX, posY) {
     }
 
     return CoverflowController;

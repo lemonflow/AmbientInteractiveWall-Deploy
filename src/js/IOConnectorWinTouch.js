@@ -103,6 +103,8 @@ IOConnectorWinTouch = (function () {
                 currentTouches.splice(currentTouchIndex, 1);
                 document.getElementById('debugtxt').textContent = "remove "+currentTouchIndex;
             }
+
+            FocusModel.instance.focusView.touchUp(touch.pageX);
         }
     };
 
