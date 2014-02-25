@@ -128,7 +128,7 @@ var SlideDeckController = (function() {
                 .start();
         }
 
-        SyncConnectionSocketIO.stateChange(obj, new InputEvent("next"));
+        syncConnection.stateChange(obj, new InputEvent("next"));
     }
     
     return SlideDeckController;
