@@ -111,7 +111,18 @@ var SlideDeckController = (function() {
     }
 
     SlideDeckController.prototype.touchUp = function(posX, posY) {
-        InputManager.getInstance().dispatchEvent(new InputEvent("next"));
+//        InputManager.getInstance().dispatchEvent(new InputEvent("next"));
+
+        this.slideId++;
+        if(this.slideId >= SlideDeckData.length)
+            this.slideId =0;
+
+        for(var i=0; i<this.view.objects.length;i++){
+            new TWEEN.Tween(this.view.objects[i].material)
+                .to({opacity: (i==this.slideId)?1.0:0}, 1000)
+                .easing(TWEEN.Easing.Exponential.Out)
+                .start();
+        }
     }
     
     return SlideDeckController;
