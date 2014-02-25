@@ -110,10 +110,12 @@ IOConnectorWinTouch = (function () {
 //                document.getElementById('debugtxt').textContent = "remove "+currentTouchIndex;
 
                 currentTime = new Date().getTime();
-                if(currentTime-lastTouchTime<250) return;
+                if(currentTime-lastTouchTime<750) return;
                 lastTouchTime = currentTime;
-                if(pressDuration>50) FocusModel.instance.focusView.touchUp(touch.pageX);
-                pressDuration = (lastTouchTime - pressDownTime);
+
+                pressDuration = (currentTime - pressDownTime);
+                if(pressDuration>250) FocusModel.instance.focusView.touchUp(touch.pageX);
+
                 document.getElementById('debugtxt').textContent = "press Duration "+pressDuration;
             }
         }
