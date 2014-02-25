@@ -5,6 +5,8 @@ IOConnectorWinTouch = (function () {
     var currentTouches = new Array;
     var pressDownTime = 0;
     var pressDuration = 0;
+    var lastTouchTime = 0;
+    var currentTime = 0;
 
 
 
@@ -107,9 +109,12 @@ IOConnectorWinTouch = (function () {
                 currentTouches.splice(currentTouchIndex, 1);
 //                document.getElementById('debugtxt').textContent = "remove "+currentTouchIndex;
 
-                pressDuration = (new Date().getTime() - pressDownTime);
-                document.getElementById('debugtxt').textContent = "press Duration "+pressDuration;
+                currentTime = new Date().getTime();
+                if(currentTime-lastTouchTime<250) return;
+                lastTouchTime = currentTime;
                 if(pressDuration>50) FocusModel.instance.focusView.touchUp(touch.pageX);
+                pressDuration = (lastTouchTime - pressDownTime);
+                document.getElementById('debugtxt').textContent = "press Duration "+pressDuration;
             }
         }
     };
