@@ -128,7 +128,7 @@ var SlideDeckController = (function() {
                 .start();
         }
 
-        FocusModel.syncConnection.stateChange(obj, new InputEvent("next"));
+        SyncConnectionSocketIO.stateChange(obj, new InputEvent("next"));
     }
     
     return SlideDeckController;
