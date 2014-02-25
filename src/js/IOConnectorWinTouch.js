@@ -111,8 +111,6 @@ IOConnectorWinTouch = (function () {
                 document.getElementById('debugtxt').textContent = "press Duration "+pressDuration;
                 if(pressDuration>50) FocusModel.instance.focusView.touchUp(touch.pageX);
             }
-
-
         }
     };
 

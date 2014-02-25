@@ -113,6 +113,10 @@ var SlideDeckController = (function() {
     SlideDeckController.prototype.touchUp = function(posX, posY) {
 //        InputManager.getInstance().dispatchEvent(new InputEvent("next"));
 
+        var obj = {};
+        obj['data1'] = this.slideId;
+        obj['data2'] = "next";
+
         this.slideId++;
         if(this.slideId >= SlideDeckData.length)
             this.slideId =0;
@@ -123,6 +127,8 @@ var SlideDeckController = (function() {
                 .easing(TWEEN.Easing.Exponential.Out)
                 .start();
         }
+
+        SyncConnectionSocketIO.instance.stateChange(obj, new InputEvent("next"));
     }
     
     return SlideDeckController;
