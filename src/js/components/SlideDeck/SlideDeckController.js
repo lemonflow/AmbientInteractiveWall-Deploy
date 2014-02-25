@@ -108,7 +108,7 @@ var SlideDeckController = (function() {
     }
 
     SlideDeckController.prototype.touchDown = function(posX, posY) {
-        this.view.objects[clientid-50].position.x = 0;
+        this.view.objects[this.slideId].position.x = 100;
     }
 
     SlideDeckController.prototype.touchUp = function(posX, posY) {
