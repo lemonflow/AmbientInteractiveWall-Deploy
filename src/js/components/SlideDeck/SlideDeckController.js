@@ -31,12 +31,12 @@ var SlideDeckController = (function() {
                 state:"state0",
                 changes:
                 [
-                    {type:"touchEnd",
-                        transition:[SlideDeckController.prototype.transitionToFloorPlan],
-                        newState:"state0"},
+//                    {type:"touchEnd",
+//                        transition:[SlideDeckController.prototype.transitionToFloorPlan],
+//                        newState:"state0"},
 
-                    {type:"next",
-                     transition:[SlideDeckController.prototype.transition1],
+                    {type:"touchEnd",
+                     transition:[SlideDeckController.prototype.transitionNextSlide],
                      newState:"state0"},
 
                     {type:"focusdeactivate",
@@ -56,6 +56,8 @@ var SlideDeckController = (function() {
                 InputManager.getInstance().dispatchEvent(new InputEvent("next"));
             }.bind(this), false);
     }
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 
     SlideDeckController.prototype.transitionPrepare = function() {
@@ -65,8 +67,6 @@ var SlideDeckController = (function() {
     }
 
     SlideDeckController.prototype.transitionShow = function() {
-        console.log(this);
-        console.log("_________transitionShow");
         new TWEEN.Tween(this.view.camera.position).to({
             x: 0, y: 0, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
         for(var i=0; i<this.view.objects.length;i++){
@@ -100,7 +100,7 @@ var SlideDeckController = (function() {
     }
     
     //go through slideshow
-    SlideDeckController.prototype.transition1 = function(e) {
+    SlideDeckController.prototype.transitionUpdateSlide = function(e) {
         console.log(this);
         console.log("_________transition1");
 
@@ -147,7 +147,6 @@ var SlideDeckController = (function() {
         }
     }
 
-//    /____________
     SlideDeckController.prototype.transitionNextSlide = function() {
         var obj = {};
         obj['data1'] = this.slideId;
@@ -166,27 +165,9 @@ var SlideDeckController = (function() {
     }
 
 
-
-
-
-
-
-
-
     SlideDeckController.prototype.transitionToFloorPlan = function() {
         FocusModel.instance.transferFocus(this,floorPlan.controller);
     }
-
-    ///////////////////////////////////////////
-
-    SlideDeckController.prototype.touchMove = function(posX, posY) {
-//        this.view.objects[this.slideId].position.x = 0+posX;
-    }
-
-    SlideDeckController.prototype.touchDown = function(posX, posY) {
-//        this.view.objects[this.slideId].position.x = 0;
-    }
-
 
     ///////////////////////////////////////////
 
