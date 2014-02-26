@@ -61,7 +61,7 @@ var CoverflowController = (function() {
                         guard:(function() {return (TouchDevice.currentY<200)}),
                         transition:[
                             CoverflowController.prototype.transitionHide,
-                            CoverflowController.prototype.transitionToFloorPlan
+                            CoverflowController.prototype.transitionToSlideDeck
                         ],
                         newState:"pre"
                     }
