@@ -185,7 +185,7 @@ var CoverflowController = (function() {
         console.log(TouchDevice.currentX);
         console.log(this.view.camera.position.x);
 
-        this.view.camera.position.x = TouchDevice.currentX+10;
+        this.view.camera.position.x = (this.slideId*1000)+(1280-TouchDevice.currentX)+10;
 
 
 //        FocusModel.instance.syncConnection.stateChange(obj);
