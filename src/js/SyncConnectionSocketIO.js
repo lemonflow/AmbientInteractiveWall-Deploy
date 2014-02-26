@@ -16,7 +16,7 @@ var SyncConnectionSocketIO = (function () {
         FocusModel.instance.syncConnection = this;
         sockjs.onopen = function()  { 
             document.getElementById('debugtxt').textContent = "open: "+clientid +" via "+sockjs.protocol;
-            self.stateChange({'init':1}, null);
+            self.stateChange({'init': 1});
         };
         
         sockjs.onmessage = function(e) { //receiving
@@ -36,8 +36,7 @@ var SyncConnectionSocketIO = (function () {
         };
     }
     
-    SyncConnectionSocketIO.prototype.stateChange = function(obj, evt) {
-        console.log(obj);
+    SyncConnectionSocketIO.prototype.stateChange = function (obj) {
         if(sockjs.readyState==1) {
             obj['id'] = clientid;
             console.log("sending: "+JSON.stringify(obj));

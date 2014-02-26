@@ -5,7 +5,7 @@ var clientid = getUrlVars()["id"]==undefined?50:getUrlVars()["id"];
 //debug functions
 document.getElementById(''+9).addEventListener('click', function(e) {
     location.reload(1);
-    FocusModel.instance.syncConnection.stateChange({'reload':1}, e);
+    FocusModel.instance.syncConnection.stateChange({'reload': 1});
 }.bind(this), false);
 
 document.getElementsByTagName('html')[0].style.cursor = "visible";

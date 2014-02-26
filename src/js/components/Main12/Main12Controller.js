@@ -66,7 +66,7 @@ var Main12Controller = (function() {
         obj['data1'] = this.slideId;
         obj['data2'] = e.type;
         
-      FocusModel.instance.syncConnection.stateChange(obj, e);
+      FocusModel.instance.syncConnection.stateChange(obj);
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
         

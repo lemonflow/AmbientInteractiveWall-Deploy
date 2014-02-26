@@ -150,8 +150,11 @@ var FloorPlanController = (function () {
                                 newState:"pre"},
 
                             {type:"touchEnd",
-                                transition:[FloorPlanController.prototype.transition1],
-                                newState:"state1"
+                                transition:[
+                                    FloorPlanController.prototype.transitionHide,
+                                    FloorPlanController.prototype.transitionToSlideDeck
+                                ],
+                                newState:"pre"
                             }
                         ]
                 }
@@ -160,19 +163,6 @@ var FloorPlanController = (function () {
     }
 
     ///////////////////////////////////////////
-
-    FloorPlanController.prototype.touchMove = function(posX, posY) {
-    }
-
-    FloorPlanController.prototype.touchDown = function(posX, posY) {
-    }
-
-    FloorPlanController.prototype.touchUp = function(posX, posY) {
-        console.log(this);
-        console.log("_______touchUP");
-//        FocusModel.instance.transferFocus(this,coverflow.controller);
-    }
-
     ///////////////////////////////////////////
     FloorPlanController.prototype.transitionPrepare = function() {
         for (var i = 0; i < this.view.objects.length; i++) {
@@ -201,9 +191,12 @@ var FloorPlanController = (function () {
         }
     }
 
+    FloorPlanController.prototype.transitionToSlideDeck = function() {
+        FocusModel.instance.transferFocus(this,slideDeck.controller);
+    }
 
     ///////////////////////////////////////////
-
+    ///////////////////////////////////////////
 
     FloorPlanController.prototype.initController = function() {
         document.getElementById(''+1).addEventListener('click', function(e) {
@@ -255,7 +248,6 @@ var FloorPlanController = (function () {
 
     //receiving
     FloorPlanController.prototype.transitionSync = function(e) {}
-
 //
 //    FloorPlanController.prototype.transition0 = function() {
 //        state = "state1";
@@ -276,7 +268,6 @@ var FloorPlanController = (function () {
 //    }
 //    
     FloorPlanController.prototype.transition1 = function() {
-
         //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
         //        new TWEEN.Tween(objectSide2.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 
@@ -291,7 +282,6 @@ var FloorPlanController = (function () {
 
 
     FloorPlanController.prototype.transition2 = function() {
-        state = "state3";
         this.view.objects[7].material.opacity = 0;
         this.view.objects[8].material.opacity = 0;
         //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
@@ -308,7 +298,6 @@ var FloorPlanController = (function () {
     }
 
     FloorPlanController.prototype.transition3 = function() {
-        state = "state4";
         this.view.objects[7].material.opacity = 0;
         this.view.objects[8].material.opacity = 0;
         //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
@@ -324,7 +313,6 @@ var FloorPlanController = (function () {
     }
 
     FloorPlanController.prototype.transition4 = function() {
-        state = "state5";
         this.view.objects[7].material.opacity = 0;
         this.view.objects[8].material.opacity = 0;
         //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
@@ -339,7 +327,6 @@ var FloorPlanController = (function () {
     }
 
     FloorPlanController.prototype.transition5 = function() {
-        state = "state6";
         this.view.objects[7].material.opacity = 0;
         this.view.objects[8].material.opacity = 0;
         //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
@@ -355,7 +342,6 @@ var FloorPlanController = (function () {
     }
 
     FloorPlanController.prototype.transition6= function() {
-        state = "state7";
         this.view.objects[7].material.opacity = 0;
         this.view.objects[8].material.opacity = 1;
 
@@ -373,7 +359,6 @@ var FloorPlanController = (function () {
     }
 
     FloorPlanController.prototype.transition7 = function() {
-        state = "state8";
         this.view.objects[7].material.opacity = 1;
         this.view.objects[8].material.opacity = 0;
 
@@ -390,7 +375,6 @@ var FloorPlanController = (function () {
     }
 
     FloorPlanController.prototype.transition8 = function() {
-        state = "state9";
 
         this.view.objects[7].material.opacity = 0;
         this.view.objects[8].material.opacity = 0;
@@ -404,6 +388,6 @@ var FloorPlanController = (function () {
 
     }
 
-return FloorPlanController;
+    return FloorPlanController;
 
 })();

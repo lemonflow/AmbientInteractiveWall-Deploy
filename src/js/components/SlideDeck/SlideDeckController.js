@@ -31,19 +31,22 @@ var SlideDeckController = (function() {
                 state:"state0",
                 changes:
                 [
+                    {
+                        type:"touchEnd",
+                        guard:(function() { return (this.slideId<5); }),
+                        transition:[SlideDeckController.prototype.transitionNextSlide],
+                         newState:"state0"
+                    },
                     {   type:"touchEnd",
                         guard:(function() { console.log(this); return (this.slideId>=5); }),
-                        transition:[SlideDeckController.prototype.transitionToFloorPlan],
-                        newState:"state0"},
-
-                    {type:"touchEnd",
-                        guard:(function() { return (this.slideId<5); }),
-                     transition:[SlideDeckController.prototype.transitionNextSlide],
-                     newState:"state0"},
-
+                        transition:[SlideDeckController.prototype.transitionHide,
+                            SlideDeckController.prototype.transitionToCoverflow],
+                        newState:"pre"
+                    },
                     {type:"focusdeactivate",
                         transition:[SlideDeckController.prototype.transitionHide],
-                        newState:"pre"}
+                        newState:"pre"
+                    }
                 ]
             }
         ];
@@ -91,12 +94,21 @@ var SlideDeckController = (function() {
         }
     }
 
+    SlideDeckController.prototype.transitionToCoverflow = function() {
+        this.slideId = 0;
+        var obj = {data1:"transitionToCoverflow"};
+        syncConnection.stateChange(obj);
+        FocusModel.instance.transferFocus(this,coverflow.controller);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////
 
     
     SlideDeckController.prototype.syncTransition = function(obj) {
-//        if(!obj.hasOwnProperty('data1') || !obj.')) return;
+        if(obj.data1 == 'transitionToCoverflow') {
+            FocusModel.instance.transferFocus(this,coverflow.controller);
+        }
+
         this.slideId = obj.data1;
         this.transitionSync(new InputEvent(obj.data2));
     }
@@ -111,7 +123,7 @@ var SlideDeckController = (function() {
         obj['data2'] = e.type;
         
 
-        FocusModel.instance.syncConnection.stateChange(obj, e);
+        FocusModel.instance.syncConnection.stateChange(obj);
 
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
@@ -163,13 +175,11 @@ var SlideDeckController = (function() {
                 .start();
         }
 
-        syncConnection.stateChange(obj, new InputEvent("next"));
+        syncConnection.stateChange(obj);
     }
 
 
-    SlideDeckController.prototype.transitionToFloorPlan = function() {
-        FocusModel.instance.transferFocus(this,floorPlan.controller);
-    }
+
 
     ///////////////////////////////////////////
 

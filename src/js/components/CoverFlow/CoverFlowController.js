@@ -42,12 +42,23 @@ var CoverflowController = (function() {
 
                     {type:"focusdeactivate",
                         transition:[CoverflowController.prototype.transitionHide],
-                        newState:"pre"}
+                        newState:"pre"},
+
+                    {type:"touchEnd",
+                        transition:[
+                            CoverflowController.prototype.transitionHide,
+                            CoverflowController.prototype.transitionToFloorPlan
+                        ],
+                        newState:"pre"
+                    }
                 ]
             }
         ];
     }
 
+
+    ///////////////////////////////////////////
+    ///////////////////////////////////////////
     CoverflowController.prototype.transitionPrepare = function() {
         this.view.camera.position.x = 0;
         this.view.camera.position.y = 0;
@@ -78,6 +89,12 @@ var CoverflowController = (function() {
             new TWEEN.Tween(this.view.objects[i].material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
         }
     }
+
+    CoverflowController.prototype.transitionToFloorPlan= function() {
+        FocusModel.instance.transferFocus(this,floorPlan.controller);
+    }
+    ///////////////////////////////////////////
+    ///////////////////////////////////////////
 
 
     CoverflowController.prototype.initController = function(document) {
@@ -132,7 +149,7 @@ var CoverflowController = (function() {
         obj['data1'] = this.slideId;
         obj['data2'] = e.type;
         
-      FocusModel.instance.syncConnection.stateChange(obj, e);
+      FocusModel.instance.syncConnection.stateChange(obj);
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
         
@@ -162,19 +179,6 @@ var CoverflowController = (function() {
         }
     }
 
-    CoverflowController.prototype.touchMove = function(posX, posY) {
-        this.view.objects[0].position.x = -2560+posX;
-    }
-
-    CoverflowController.prototype.touchDown = function(posX, posY) {
-        this.view.objects[0].position.x = -2560;
-    }
-
-    CoverflowController.prototype.touchUp = function(posX, posY) {
-        console.log(this);
-        console.log("_______touchUP");
-        FocusModel.instance.transferFocus(this,slideDeck.controller);
-    }
 
     return CoverflowController;
 })();

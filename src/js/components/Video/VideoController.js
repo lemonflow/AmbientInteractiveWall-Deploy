@@ -63,7 +63,7 @@ var VideoController = (function () {
 //        if(e.type =='prev') this.slideId--;
 //        if(e.type =='next') this.slideId++;
         
-        FocusModel.instance.syncConnection.stateChange(obj, e);
+        FocusModel.instance.syncConnection.stateChange(obj);
         
         new TWEEN.Tween(this.view.objects[0].material)
             .to({opacity: 0.1}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
@@ -78,7 +78,7 @@ var VideoController = (function () {
         
     VideoController.prototype.transition2 = function(e) {
         var obj = {};
-        FocusModel.instance.syncConnection.stateChange(obj, e);
+        FocusModel.instance.syncConnection.stateChange(obj);
         
         new TWEEN.Tween(this.view.objects[0].material)
             .to({opacity: 1}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
