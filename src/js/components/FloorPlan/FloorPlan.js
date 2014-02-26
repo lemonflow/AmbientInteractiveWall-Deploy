@@ -27,7 +27,7 @@ var FloorPlan = (function () {
         console.log(this);
         console.log("_______init Floorplan");
 
-        this.camera = new THREE.OrthographicCamera( 75, w / h, 1, 10000 );
+        this.camera = new THREE.PerspectiveCamera( 75, w / h, 1, 10000 );
         var offsetX = (clientid-50)*w;
         this.camera.setViewOffset( fullWidth, fullHeight, offsetX, 0, w, h );
 
