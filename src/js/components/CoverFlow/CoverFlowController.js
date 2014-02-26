@@ -92,10 +92,25 @@ var CoverflowController = (function() {
 
     CoverflowController.prototype.transitionToFloorPlan= function() {
         FocusModel.instance.transferFocus(this,floorPlan.controller);
+
+
+        var obj = {data1:"transitionToSlideShow"};
+        syncConnection.stateChange(obj);
     }
     ///////////////////////////////////////////
     ///////////////////////////////////////////
 
+    CoverflowController.prototype.syncTransition = function(obj) {
+        if(obj.data1 == 'transitionToSlideShow') {
+            FocusModel.instance.transferFocus(this,slideDeck.controller);
+            return;
+        }
+
+        this.slideId = obj.data1;
+        this.transitionSync(new InputEvent(obj.data2));
+
+
+    }
 
     CoverflowController.prototype.initController = function(document) {
         document.getElementById(''+1).addEventListener('click', function(e) { 
@@ -107,11 +122,7 @@ var CoverflowController = (function() {
             }.bind(this), false);
     }
     
-    CoverflowController.prototype.syncTransition = function(obj) {
-        this.slideId = obj.data1;
-        this.transitionSync(new InputEvent(obj.data2));
-    }
-    
+
    CoverflowController.prototype.initOperators = function(objects, operators) {
         var groupid = 0;
         for (var i = 0; i < objects.length; i++) {

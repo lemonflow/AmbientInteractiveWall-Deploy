@@ -107,6 +107,7 @@ var SlideDeckController = (function() {
     SlideDeckController.prototype.syncTransition = function(obj) {
         if(obj.data1 == 'transitionToCoverflow') {
             FocusModel.instance.transferFocus(this,coverflow.controller);
+            return;
         }
 
         this.slideId = obj.data1;
