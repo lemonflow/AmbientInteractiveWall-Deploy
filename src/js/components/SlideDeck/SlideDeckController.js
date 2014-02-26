@@ -31,13 +31,13 @@ var SlideDeckController = (function() {
                 state:"state0",
                 changes:
                 [
-//                    {type:"touchEnd",
-//                        transition:[SlideDeckController.prototype.transitionToFloorPlan],
-//                        newState:"state0"},
-
                     {type:"touchEnd",
-                     transition:[SlideDeckController.prototype.transitionNextSlide],
-                     newState:"state0"},
+                        transition:[SlideDeckController.prototype.transitionToFloorPlan],
+                        newState:"state0"},
+
+//                    {type:"touchEnd",
+//                     transition:[SlideDeckController.prototype.transitionNextSlide],
+//                     newState:"state0"},
 
                     {type:"focusdeactivate",
                         transition:[SlideDeckController.prototype.transitionHide],
