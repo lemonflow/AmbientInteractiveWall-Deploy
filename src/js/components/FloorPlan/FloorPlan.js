@@ -29,7 +29,7 @@ var FloorPlan = (function () {
 
         this.camera = new THREE.PerspectiveCamera( 75, w / h, 1, 10000 );
         var offsetX = (clientid-50)*w;
-        this.camera.setViewOffset( fullWidth, fullHeight, offsetX, 0, w, h );
+//        this.camera.setViewOffset( fullWidth, fullHeight, offsetX, 0, w, h );
 
         this.camera.position.x = 0;
         this.camera.position.z = 521;
