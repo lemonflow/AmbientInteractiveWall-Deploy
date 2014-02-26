@@ -119,8 +119,6 @@ var CoverflowController = (function() {
 
         this.slideId = obj.data1;
         this.transitionSync(new InputEvent(obj.data2));
-
-
     }
 
     CoverflowController.prototype.initController = function(document) {
@@ -190,46 +188,13 @@ var CoverflowController = (function() {
         console.log(TouchDevice.currentX);
         console.log(this.view.camera.position.x);
 
-        this.view.camera.position.x = (clientid-50)*1280+(1280-TouchDevice.currentX)+10;
+        //inform others
         var obj = {data1:"transitionSwipe", data2:TouchDevice.currentX, data3:TouchDevice.currentY};
         syncConnection.stateChange(obj);
 
-
-
-//        FocusModel.instance.syncConnection.stateChange(obj);
-//        if(e.type =='prev') this.slideId--;
-//        if(e.type =='next') this.slideId++;
-//
-//        new TWEEN.Tween(this.view.camera.position).to({
-//            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
-//
-//        for(var i=0; i<this.view.objects.length;i++){
-//            new TWEEN.Tween(this.view.objects[i].material)
-//                .to({opacity: (i==this.slideId)?1.0:0.5}, 1000)
-//                .easing(TWEEN.Easing.Exponential.Out)
-//                .start();
-//        }
+        //local swipe
+        this.view.camera.position.x = (clientid-50)*1280+(1280-TouchDevice.currentX)+10;
     }
-
-    
-        //go through slideshow triggered by other call
-    CoverflowController.prototype.transitionSync = function(e) {
-
-        if(e.data1==)
-
-        if(e.type =='prev') this.slideId--;
-        if(e.type =='next') this.slideId++;
-        
-        new TWEEN.Tween(this.view.camera.position).to({
-            x: ((this.slideId*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
-        for(var i=0; i<this.view.objects.length;i++){
-             new TWEEN.Tween(this.view.objects[i].material)
-                 .to({opacity: (i==this.slideId)?1.0:0.5}, 1000)
-                 .easing(TWEEN.Easing.Exponential.Out)
-                 .start();
-        }
-    }
-
 
     return CoverflowController;
 })();
