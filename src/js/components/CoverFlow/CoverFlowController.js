@@ -194,7 +194,7 @@ var CoverflowController = (function() {
         syncConnection.stateChange(obj);
 
         //local swipe
-        this.view.camera.position.x = (clientid-50)*1000+(1280-TouchDevice.currentX)+10;
+        this.view.camera.position.x = (clientid-50)*500+(1280-TouchDevice.currentX)+10;
     }
 
     return CoverflowController;
