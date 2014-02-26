@@ -69,7 +69,7 @@ var FloorPlanController = (function () {
 
         for (var i = 0; i < this.view.objects.length; i++) {
             var obj = this.view.objects[i];
-            obj.position.x = -1920;
+//            obj.position.x = -1920;
             new TWEEN.Tween(obj.material).to({opacity: 1}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
         }
     }
