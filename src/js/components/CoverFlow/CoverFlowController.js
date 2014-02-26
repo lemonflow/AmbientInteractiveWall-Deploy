@@ -195,14 +195,14 @@ var CoverflowController = (function() {
             var obj = {data1:"transitionSwipe", data2:TouchDevice.currentXSmooth, data3:TouchDevice.currentY};
             syncConnection.stateChange(obj);
 
-            //local swipe
+            //local swiped
             this.view.camera.position.x = (clientid-50)*500+(1280-TouchDevice.currentXSmooth)+10;
             document.getElementById('debugtxt').textContent = "made "+this.view.camera.position.x;
         }.bind(this);
 
         TWEEN.removeAll();
         new TWEEN.Tween(TouchDevice)
-            .to({currentXSmooth:TouchDevice.currentX}, 550)
+            .to({currentXSmooth:TouchDevice.currentX}, 450)
             .easing(TWEEN.Easing.Exponential.Out)
             .onUpdate(f)
             .start();
