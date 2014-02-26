@@ -192,6 +192,7 @@ var FloorPlanController = (function () {
     }
 
     FloorPlanController.prototype.transitionToSlideDeck = function() {
+        FocusModel.instance.syncConnection.stateChange({data1:-1,data2:'next'}); //others are already on slidedeck
         FocusModel.instance.transferFocus(this,slideDeck.controller);
     }
 
