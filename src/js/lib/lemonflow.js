@@ -719,7 +719,8 @@ var OperatorStates = (function (_super) {
                         if (stateChange.hasOwnProperty("guard")) {
                             var f = stateChange["guard"];
                             var transtioner = this.context;
-                            guardValue = f();
+                            guardValue = f.call(this);
+                            console.log("guardValue "+guardValue);
                         }
                         if (!guardValue)
                             continue;

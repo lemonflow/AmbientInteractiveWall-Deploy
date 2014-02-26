@@ -31,13 +31,15 @@ var SlideDeckController = (function() {
                 state:"state0",
                 changes:
                 [
-                    {type:"touchEnd",
+                    {   type:"touchEnd",
+                        guard:(function() { console.log(this); return (this.slideId>=5); }),
                         transition:[SlideDeckController.prototype.transitionToFloorPlan],
                         newState:"state0"},
 
-//                    {type:"touchEnd",
-//                     transition:[SlideDeckController.prototype.transitionNextSlide],
-//                     newState:"state0"},
+                    {type:"touchEnd",
+                        guard:(function() { return (this.slideId<5); }),
+                     transition:[SlideDeckController.prototype.transitionNextSlide],
+                     newState:"state0"},
 
                     {type:"focusdeactivate",
                         transition:[SlideDeckController.prototype.transitionHide],
