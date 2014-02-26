@@ -71,6 +71,8 @@ IOConnectorTouch = (function () {
             });
             TouchDevice.startX = touch.pageX;
             TouchDevice.startY = touch.pageY;
+            TouchDevice.currentX = touch.pageX;
+            TouchDevice.currentY = touch.pageY;
 
         }
 
@@ -114,6 +116,9 @@ IOConnectorTouch = (function () {
             if (currentTouchIndex >= 0) {
                 var currentTouch =  TouchDevice.currentTouches[currentTouchIndex];
                 TouchDevice.currentTouches.splice(currentTouchIndex, 1);
+                TouchDevice.currentX = touch.pageX;
+                TouchDevice.currentY = touch.pageY;
+
 //                document.getElementById('debugtxt').textContent = "remove "+currentTouchIndex;
 
                 currentTime = new Date().getTime();
