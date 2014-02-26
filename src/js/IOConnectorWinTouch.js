@@ -72,7 +72,9 @@ IOConnectorWinTouch = (function () {
             });
         }
 
-        FocusModel.instance.focusController.touchDown(touch.pageX);
+        InputManager.getInstance().routeFromInputDevice(new Event('touchStart'));
+        //direct call:
+//        FocusModel.instance.focusController.touchDown(touch.pageX);
         document.getElementById('debugtxt').textContent = "add "+ touch.identifier+"@"+touch.pageX;
         pressDownTime = new Date().getTime();
 

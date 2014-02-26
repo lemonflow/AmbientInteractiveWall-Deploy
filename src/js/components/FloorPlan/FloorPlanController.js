@@ -35,9 +35,29 @@ var FloorPlanController = (function () {
                         [
                             {type:"focusdeactivate",
                                 transition:[FloorPlanController.prototype.transitionHide],
-                                newState:"pre"}
+                                newState:"pre"},
+
+                            {type:"touchStart",
+                                transition:[FloorPlanController.prototype.transition1],
+                                newState:"state1"
+                            }
+                        ]
+                },
+                {
+                    state:"state1",
+                    changes:
+                        [
+                            {type:"focusdeactivate",
+                                transition:[FloorPlanController.prototype.transitionHide],
+                                newState:"pre"},
+
+                            {type:"touchStart",
+                                transition:[FloorPlanController.prototype.transition2],
+                                newState:"state1"
+                            }
                         ]
                 }
+
             ];
     }
 
@@ -52,10 +72,9 @@ var FloorPlanController = (function () {
     FloorPlanController.prototype.touchUp = function(posX, posY) {
         console.log(this);
         console.log("_______touchUP");
-        FocusModel.instance.transferFocus(this,coverflow.controller);
-
-//        this.transitionToSlideDeck();
+//        FocusModel.instance.transferFocus(this,coverflow.controller);
     }
+
     ///////////////////////////////////////////
     FloorPlanController.prototype.transitionPrepare = function() {
         for (var i = 0; i < this.view.objects.length; i++) {
@@ -136,58 +155,9 @@ var FloorPlanController = (function () {
     }
 
 
-
-    FloorPlanController.prototype.transition1 = function(e) {
-        console.log("FloorPlanController.prototype.transition1");
-        var obj = {'pos':1};
-        FocusModel.instance.syncConnection.stateChange(obj, e);
-
-        new TWEEN.Tween(this.view.camera.position)
-            .to({ x: 10, y: 10, z: 900}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
-
-//        new TWEEN.Tween(this.view.objects[0].material)
-//        .to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        new TWEEN.Tween(this.view.objects[3].material)
-//        .to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        new TWEEN.Tween(this.view.objects[6].material)
-//        .to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-
-        for (var i = 0; i < this.view.objects.length; i++)
-            new TWEEN.Tween(this.view.objects[i].position)
-            .to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-    }
-
-
     //receiving
-    FloorPlanController.prototype.transitionSync = function(e) {
+    FloorPlanController.prototype.transitionSync = function(e) {}
 
-
-        new TWEEN.Tween(this.view.camera.position)
-        .to({ x: 10, y: 10, z: 900}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
-        new TWEEN.Tween(this.view.objects[0].material)
-        .to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-        new TWEEN.Tween(this.view.objects[3].material)
-        .to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-        new TWEEN.Tween(this.view.objects[6].material)
-        .to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-
-        for (var i = 0; i < this.view.objects.length; i++)
-            new TWEEN.Tween(this.view.objects[i].position)
-            .to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-
-
-//        new TWEEN.Tween(this.view.camera.position)
-//        .to({ x: 10, y: -700, z: 600}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
-//        new TWEEN.Tween(this.view.objects[0].material)
-//        .to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        new TWEEN.Tween(this.view.objects[3].material)
-//        .to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        new TWEEN.Tween(this.view.objects[6].material)
-//        .to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-    }
-    return FloorPlanController;
-
-})();
 //
 //    FloorPlanController.prototype.transition0 = function() {
 //        state = "state1";
@@ -207,38 +177,37 @@ var FloorPlanController = (function () {
 ////            new TWEEN.Tween(this.view.objects[i].position).to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
 //    }
 //    
-//    FloorPlanController.prototype.transition1 = function() {
-//        state = "state2";
-//        
-//        //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        //        new TWEEN.Tween(objectSide2.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        
-//        new TWEEN.Tween(this.view.camera.position).to({ x: 10, y: 10, z: 900}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
-//        new TWEEN.Tween(this.view.objects[0].material).to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        new TWEEN.Tween(this.view.objects[3].material).to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        new TWEEN.Tween(this.view.objects[6].material).to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        
-//        for (var i = 0; i < this.view.objects.length; i++) 
-//            new TWEEN.Tween(this.view.objects[i].position).to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//    }
-//    
-//    
-//    FloorPlanController.prototype.transition2 = function() {
-//        state = "state3";
-//        this.view.objects[7].material.opacity = 0;
-//        this.view.objects[8].material.opacity = 0;
-//        //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        //        new TWEEN.Tween(objectSide2.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        
-//        new TWEEN.Tween(this.view.camera.position).to({ x: 10, y: 10, z: 600}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
-//        new TWEEN.Tween(this.view.objects[0].material).to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        new TWEEN.Tween(this.view.objects[3].material).to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        new TWEEN.Tween(this.view.objects[6].material).to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        
-//        for (var i = 0; i < this.view.objects.length; i++) 
-//            new TWEEN.Tween(this.view.objects[i].position).to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-//        
-//    }
+    FloorPlanController.prototype.transition1 = function() {
+
+        //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+        //        new TWEEN.Tween(objectSide2.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+
+        new TWEEN.Tween(this.view.camera.position).to({ x: 10, y: 10, z: 900}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+        new TWEEN.Tween(this.view.objects[0].material).to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+        new TWEEN.Tween(this.view.objects[3].material).to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+        new TWEEN.Tween(this.view.objects[6].material).to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+
+        for (var i = 0; i < this.view.objects.length; i++)
+            new TWEEN.Tween(this.view.objects[i].position).to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+    }
+
+
+    FloorPlanController.prototype.transition2 = function() {
+        state = "state3";
+        this.view.objects[7].material.opacity = 0;
+        this.view.objects[8].material.opacity = 0;
+        //        new TWEEN.Tween(objectSide.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+        //        new TWEEN.Tween(objectSide2.material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+
+        new TWEEN.Tween(this.view.camera.position).to({ x: 10, y: 10, z: 600}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+        new TWEEN.Tween(this.view.objects[0].material).to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+        new TWEEN.Tween(this.view.objects[3].material).to({opacity: 0.9}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+        new TWEEN.Tween(this.view.objects[6].material).to({opacity: 0.05}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+
+        for (var i = 0; i < this.view.objects.length; i++)
+            new TWEEN.Tween(this.view.objects[i].position).to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+
+    }
 //    
 //    FloorPlanController.prototype.transition3 = function() {
 //        state = "state4";
@@ -337,5 +306,6 @@ var FloorPlanController = (function () {
 //        
 //    }
 //    
-//    return FloorPlanController;
-//})();
+return FloorPlanController;
+
+})();
