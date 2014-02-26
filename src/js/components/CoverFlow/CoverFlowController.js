@@ -115,6 +115,7 @@ var CoverflowController = (function() {
         if(obj.data1 == 'transitionSwipe') {
 
             this.view.camera.position.x = (clientid-50)*1000+(1280-obj.data2)+10;
+            document.getElementById('debugtxt').textContent = "got "+obj.data2+" made "+ this.view.camera.position.x;
             return;
         }
 
@@ -186,8 +187,8 @@ var CoverflowController = (function() {
     }
 
     CoverflowController.prototype.transitionSwipe = function(e) {
-        console.log(TouchDevice.currentX);
-        console.log(this.view.camera.position.x);
+//        console.log(TouchDevice.currentX);
+//        console.log(this.view.camera.position.x);
 
         //inform others
         var obj = {data1:"transitionSwipe", data2:TouchDevice.currentX, data3:TouchDevice.currentY};
