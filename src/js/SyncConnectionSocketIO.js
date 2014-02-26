@@ -24,7 +24,7 @@ var SyncConnectionSocketIO = (function () {
             var obj = JSON.parse(e.data);
 //            document.getElementById('debugtxt').textContent = "received: "+e.data;
             if(obj['id'] != clientid && !obj.hasOwnProperty('init')) {
-                FocusModel.instance.focusView.syncTransition(obj);
+                FocusModel.instance.focusController.syncTransition(obj);
             }
             
             if(obj['id'] != clientid && obj.hasOwnProperty('reload')) {

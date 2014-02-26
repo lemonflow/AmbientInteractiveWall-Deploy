@@ -14,7 +14,7 @@ var SyncConnectionNow = (function () {
         now.receiveData = function(obj) {
              document.getElementById('debugtxt').textContent = "received: "+obj;
             if(obj['id'] != clientid) {
-                FocusModel.instance.focusView.syncTransition(obj);
+                FocusModel.instance.focusController.syncTransition(obj);
             }
         }
         

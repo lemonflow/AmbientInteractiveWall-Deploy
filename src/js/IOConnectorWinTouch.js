@@ -72,7 +72,7 @@ IOConnectorWinTouch = (function () {
             });
         }
 
-        FocusModel.instance.focusView.touchDown(touch.pageX);
+        FocusModel.instance.focusController.touchDown(touch.pageX);
         document.getElementById('debugtxt').textContent = "add "+ touch.identifier+"@"+touch.pageX;
         pressDownTime = new Date().getTime();
 
@@ -92,7 +92,7 @@ IOConnectorWinTouch = (function () {
                 currentTouches.splice(currentTouchIndex, 1, currentTouch);
 
                 document.getElementById('debugtxt').textContent = "move"+currentTouch.startX;
-                FocusModel.instance.focusView.touchMove(touch.pageX);
+                FocusModel.instance.focusController.touchMove(touch.pageX);
             }
         }
     };
@@ -114,7 +114,7 @@ IOConnectorWinTouch = (function () {
                 lastTouchTime = currentTime;
 
                 pressDuration = (currentTime - pressDownTime);
-                if(pressDuration>50) FocusModel.instance.focusView.touchUp(touch.pageX);
+                if(pressDuration>50) FocusModel.instance.focusController.touchUp(touch.pageX);
 
                 document.getElementById('debugtxt').textContent = "press Duration "+pressDuration;
             }

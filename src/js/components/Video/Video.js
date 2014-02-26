@@ -1,7 +1,5 @@
 var Video = (function () {
     var camera;
-    var windowHalfX = window.innerWidth / 2;
-    var windowHalfY = window.innerHeight / 2;
     var fullWidth = window.innerWidth;
     var fullHeight = window.innerHeight;
     
@@ -47,6 +45,7 @@ var Video = (function () {
         
         mesh = new THREE.Mesh( new THREE.CubeGeometry( 8000, 400, 1 ), material_base );
         mesh.position.x =  0;
+//        mesh.rotation.x =  Math.PI/2;
         mesh.position.y =  0;
         mesh.position.z = 0;
         mesh.scale.x = mesh.scale.y = mesh.scale.z = 0.25;

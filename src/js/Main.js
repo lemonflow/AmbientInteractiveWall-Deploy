@@ -31,16 +31,11 @@ var screenCount = 7;
 var renderer = new THREE.WebGLRenderer({ clearColor: 0x232329, clearAlpha: 1, antialias: true });
 renderer.autoClear = false;
 renderer.setSize(w, h);
+//renderer.sortObjects = false;
 document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 //var background = new Background(clientid,renderer);
 //background.init(); //own renderloop
-//
-////floorplan
-//var ref6 = new FloorPlan(clientid, renderer);
-//ref6.init(scene);
-//ref6.controller.view = ref6;
-//focusView= ref6;
 //
 ////video
 //var ref8 = new Video(clientid, renderer);
@@ -56,18 +51,23 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 
 //coverflow
-//var coverflow = new CoverFlow(clientid, renderer);
-//coverflow.init(scene);
-//coverflow.controller.view = coverflow;
-//focusView = coverflow;
+var coverflow = new CoverFlow(clientid, renderer);
+coverflow.init(scene);
+coverflow.controller.view = coverflow;
+
+
+////floorplan
+var floorPlan = new FloorPlan(clientid, renderer);
+floorPlan.init(scene);
+floorPlan.controller.view = floorPlan;
 
 
 //slideshow
-var ref11 = new SlideDeck(clientid, renderer);
-ref11.init(scene);
-ref11.controller.view = ref11;
-focusView = ref11;
+var slideDeck = new SlideDeck(clientid, renderer);
+slideDeck.init(scene);
+slideDeck.controller.view = slideDeck;
 
+focusView= slideDeck;
 
 //particles
 //var ref9 = new Main9(clientid, renderer);
@@ -93,7 +93,7 @@ if(focusView != null && focusView.hasOwnProperty("controller"))
 
 
 (function renderloop() {
-    renderer.render( scene, focusView.camera );
+    renderer.render( scene, FocusModel.instance.focusController.view.camera );
     TWEEN.update();
     if(focusView.needsContinuousUpdate) focusView.update();
     if(focusView.controller.needsContinuousUpdate) focusView.controller.update();

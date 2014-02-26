@@ -27,10 +27,17 @@ var SlideDeck = (function () {
     }
     
     SlideDeck.prototype.init = function(scene) {
+        console.log(this);
+        console.log("_______init SlideDeck");
+
+
         camera = new THREE.PerspectiveCamera( 75, w / h, 1, 10000 );
         var offsetX = (clientid-50)*w;
         camera.setViewOffset( fullWidth, fullHeight, offsetX, 0, w, h );
         this.camera = camera;
+        this.camera.position.x = 10;
+        this.camera.position.x = 10;
+        this.camera.position.z = 900;
         
         for (var i = 0; i < SlideDeckData.length; i++) {
             var texture, material, plane;
@@ -41,7 +48,7 @@ var SlideDeck = (function () {
             plane = new THREE.Mesh(new THREE.PlaneGeometry(8960, 800), material);
             plane.doubleSided = true;
             plane.position.y = 0;
-            plane.rotation.x = Math.PI / 2;
+            plane.rotation.x = 0;//Math.PI / 2;
             scene.add(plane);
             this.objects.push(plane);
         }

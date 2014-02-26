@@ -437,9 +437,13 @@ var FocusModel = (function () {
     function FocusModel() {
         this.availableViews = [];
         this.focusComponentStack = [];
-        this.focusView = null;
+        this.focusController = null;
         this.syncConnection = null;
+        this.eventRoutingFunction = function(e) {
+            this.focusController.processUserInput(e);
+        }.bind(this);
     }
+
     FocusModel.prototype.transferFocus = function (oldactiveC, newactiveC) {
         this.deactivate(oldactiveC);
         this.focusComponentStack.push(newactiveC);
@@ -465,19 +469,23 @@ var FocusModel = (function () {
         oldactiveC = this.focusComponentStack.length > 0 ? this.focusComponentStack[this.focusComponentStack.length - 1] : null;
         this.deactivate(oldactiveC);
         this.focusComponentStack.push(newactiveC);
+
         this.activate(newactiveC);
+
+
     };
 
     //component gains focus, i.e. all input events get routed to this component
     FocusModel.prototype.activate = function (c) {
         if (c == null)
             return;
-        for (var i = 0; i < c.eventTypes.length; i++)
-            InputManager.getInstance().addEventListener(c.eventTypes[i], c.processUserInput);
+        for (var i = 0; i < c.eventTypes.length; i++) {
+            InputManager.getInstance().addEventListener(c.eventTypes[i],this.eventRoutingFunction);
+        }
 
-        this.focusView = c;
+        this.focusController = c;
         c.inFocus = true;
-        c.processUserInput(new UIStateEvent(UIStateEvent.FOCUS_ACTIVATE));
+        this.focusController.processUserInput(new UIStateEvent(UIStateEvent.FOCUS_ACTIVATE));
     };
 
     //component looses focus
@@ -486,10 +494,10 @@ var FocusModel = (function () {
             return;
 
         for (var i = 0; i < c.eventTypes.length; i++)
-            InputManager.getInstance().removeEventListener(c.eventTypes[i], c.processUserInput);
+            InputManager.getInstance().removeEventListener(c.eventTypes[i], this.eventRoutingFunction);
 
         c.inFocus = false;
-        c.processUserInput(new UIStateEvent(UIStateEvent.FOCUS_DEACTIVATE));
+        this.focusController.processUserInput(new UIStateEvent(UIStateEvent.FOCUS_DEACTIVATE));
     };
     FocusModel.instance = new FocusModel();
     return FocusModel;
@@ -662,8 +670,6 @@ var OperatorStates = (function (_super) {
         
     }
     OperatorStates.prototype.setup = function () {
-        self = this;
-
         if (!this.flow)
             return;
 
@@ -686,8 +692,10 @@ var OperatorStates = (function (_super) {
     };
 
     OperatorStates.prototype.processUserInput = function (e) {
-        self.lastEvent = e;
-        self.update.call(self);
+        console.log(this);
+        console.log("______processInput " + e.type);
+        this.lastEvent = e;
+        this.update();
     };
 
     OperatorStates.prototype.update = function () {
@@ -716,10 +724,10 @@ var OperatorStates = (function (_super) {
                         if (!guardValue)
                             continue;
 
-                        console.log(this.lastEvent + " " + (stateChange["transition"][k]));
+//                        console.log(this.lastEvent + " " + (stateChange["transition"][k]));
                         if (stateChange.hasOwnProperty("transition") && stateChange["transition"] != null) {
                             for (var k = 0; k < stateChange["transition"].length; k++) {
-                                console.log(stateChange["transition"][k]);
+//                                console.log(stateChange["transition"][k]);
                                 (stateChange["transition"][k]).call(this.context, this.lastEvent);
                             }
                         }

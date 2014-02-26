@@ -16,13 +16,17 @@ var CoverflowController = (function() {
         this.flow = 
             [
              {
-                state:"pre",
-                changes:
-                [
-                    {type:"focusactivate",
-                     transition:[CoverflowController.prototype.transition1],
-                     newState:"state0"}
-                ]
+                 state:"pre",
+                 changes:
+                     [
+                         {type:"viewAttached",
+                             transition:[CoverflowController.prototype.transitionPrepare],
+                             newState:"pre"},
+
+                         {type:"focusactivate",
+                             transition:[CoverflowController.prototype.transitionShow],
+                             newState:"state0"}
+                     ]
             },
             {
                 state:"state0",
@@ -30,21 +34,52 @@ var CoverflowController = (function() {
                 [
                     {type:"next",
                      transition:[CoverflowController.prototype.transition1],
-                     newState:"state0"}
-                ]
-            },
-            {
-                state:"state0",
-                changes:
-                [
+                     newState:"state0"},
+
                     {type:"prev",
-                     transition:[CoverflowController.prototype.transition1],
-                     newState:"state0"}
+                        transition:[CoverflowController.prototype.transition1],
+                        newState:"state0"},
+
+                    {type:"focusdeactivate",
+                        transition:[CoverflowController.prototype.transitionHide],
+                        newState:"pre"}
                 ]
             }
         ];
     }
-    
+
+    CoverflowController.prototype.transitionPrepare = function() {
+        this.view.camera.position.x = 0;
+        this.view.camera.position.y = 0;
+        this.view.camera.position.z = 521;
+
+        for (var i = 0; i < this.view.objects.length; i++) {
+            this.view.objects[i].material.opacity = 0.0;
+        }
+    }
+
+    CoverflowController.prototype.transitionShow = function() {
+        new TWEEN.Tween(this.view.camera.position).to({
+            x: ((2*1000)+10), y: 10, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+
+        for(var i=0; i<this.view.objects.length;i++){
+            new TWEEN.Tween(this.view.objects[i].material)
+                .to({opacity: (i==this.slideId)?1.0:0.5}, 1000)
+                .easing(TWEEN.Easing.Exponential.Out)
+                .start();
+        }
+    }
+
+    CoverflowController.prototype.transitionHide = function() {
+        new TWEEN.Tween(this.view.camera.position)
+            .to({  x: 0, y: 0, z: 521}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+
+        for (var i = 0; i < this.view.objects.length; i++) {
+            new TWEEN.Tween(this.view.objects[i].material).to({opacity: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
+        }
+    }
+
+
     CoverflowController.prototype.initController = function(document) {
         document.getElementById(''+1).addEventListener('click', function(e) { 
                 InputManager.getInstance().dispatchEvent(new InputEvent("prev"));
@@ -67,7 +102,7 @@ var CoverflowController = (function() {
             referenceObj.position.x = 1000*i;
             referenceObj.position.y = 0 //100+200*i;
             referenceObj.position.z = 0;
-            referenceObj.rotation.x = Math.PI/2;
+            referenceObj.rotation.x = 0;//Math.PI/2;
             operators.overviewLayout.push(referenceObj);
         }
     }
@@ -136,6 +171,9 @@ var CoverflowController = (function() {
     }
 
     CoverflowController.prototype.touchUp = function(posX, posY) {
+        console.log(this);
+        console.log("_______touchUP");
+        FocusModel.instance.transferFocus(this,slideDeck.controller);
     }
 
     return CoverflowController;
