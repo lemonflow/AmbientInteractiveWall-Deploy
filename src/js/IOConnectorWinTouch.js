@@ -116,7 +116,10 @@ IOConnectorWinTouch = (function () {
                 lastTouchTime = currentTime;
 
                 pressDuration = (currentTime - pressDownTime);
-                if(pressDuration>50) FocusModel.instance.focusController.touchUp(touch.pageX);
+                if(pressDuration>50) {
+                    InputManager.getInstance().routeFromInputDevice(new Event('touchEnd'));
+//                    FocusModel.instance.focusController.touchUp(touch.pageX);
+                }
 
                 document.getElementById('debugtxt').textContent = "press Duration "+pressDuration;
             }

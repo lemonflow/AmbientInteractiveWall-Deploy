@@ -31,6 +31,10 @@ var SlideDeckController = (function() {
                 state:"state0",
                 changes:
                 [
+                    {type:"touchEnd",
+                        transition:[SlideDeckController.prototype.transitionToFloorPlan],
+                        newState:"state0"},
+
                     {type:"next",
                      transition:[SlideDeckController.prototype.transition1],
                      newState:"state0"},
@@ -169,7 +173,9 @@ var SlideDeckController = (function() {
 
 
 
-
+    SlideDeckController.prototype.transitionToFloorPlan = function() {
+        FocusModel.instance.transferFocus(this,floorPlan.controller);
+    }
 
     ///////////////////////////////////////////
 
@@ -181,11 +187,7 @@ var SlideDeckController = (function() {
 //        this.view.objects[this.slideId].position.x = 0;
     }
 
-    SlideDeckController.prototype.touchUp = function(posX, posY) {
-        console.log(this);
-        console.log("______touchUp");
-        FocusModel.instance.transferFocus(this,floorPlan.controller);
-    }
+
     ///////////////////////////////////////////
 
     return SlideDeckController;
