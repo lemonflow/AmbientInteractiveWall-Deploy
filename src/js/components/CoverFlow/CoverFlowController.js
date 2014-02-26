@@ -190,13 +190,22 @@ var CoverflowController = (function() {
 //        console.log(TouchDevice.currentX);
 //        console.log(this.view.camera.position.x);
 
-        //inform others
-        var obj = {data1:"transitionSwipe", data2:TouchDevice.currentX, data3:TouchDevice.currentY};
-        syncConnection.stateChange(obj);
+        var f = function () {
+            //inform others
+            var obj = {data1:"transitionSwipe", data2:TouchDevice.currentXSmooth, data3:TouchDevice.currentY};
+            syncConnection.stateChange(obj);
 
-        //local swipe
-        this.view.camera.position.x = (clientid-50)*500+(1280-TouchDevice.currentX)+10;
-        document.getElementById('debugtxt').textContent = "made "+this.view.camera.position.x;
+            //local swipe
+            this.view.camera.position.x = (clientid-50)*500+(1280-TouchDevice.currentXSmooth)+10;
+            document.getElementById('debugtxt').textContent = "made "+this.view.camera.position.x;
+        }.bind(this);
+
+        TWEEN.removeAll();
+        new TWEEN.Tween(TouchDevice)
+            .to({currentXSmooth:TouchDevice.currentX}, 100)
+            .easing(TWEEN.Easing.Exponential.Out)
+            .onUpdate(f)
+            .start();
     }
 
     return CoverflowController;
