@@ -113,7 +113,7 @@ var CoverflowController = (function() {
         }
 
         if(obj.data1 == 'transitionSwipe') {
-            this.view.camera.position.x = (clientid-50)*1280+(1280-TouchDevice.currentX)+10;
+            this.view.camera.position.x = (clientid-50)*1280+(1280-obj.data2)+10;
             return;
         }
 
