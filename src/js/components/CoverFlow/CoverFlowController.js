@@ -196,6 +196,7 @@ var CoverflowController = (function() {
 
         //local swipe
         this.view.camera.position.x = (clientid-50)*500+(1280-TouchDevice.currentX)+10;
+        document.getElementById('debugtxt').textContent = "made "+this.view.camera.position.x;
     }
 
     return CoverflowController;
