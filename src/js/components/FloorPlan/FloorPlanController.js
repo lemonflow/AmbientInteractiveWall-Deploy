@@ -65,10 +65,11 @@ var FloorPlanController = (function () {
 
     FloorPlanController.prototype.transitionShow = function() {
         new TWEEN.Tween(this.view.camera.position)
-            .to({ x: 1800, y: 0, z: 1200}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
+            .to({ x: 0, y: 0, z: 1200}, 1000).easing(TWEEN.Easing.Exponential.Out) .start();
 
         for (var i = 0; i < this.view.objects.length; i++) {
             var obj = this.view.objects[i];
+            obj.position.x = -1920;
             new TWEEN.Tween(obj.material).to({opacity: 1}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
         }
     }
