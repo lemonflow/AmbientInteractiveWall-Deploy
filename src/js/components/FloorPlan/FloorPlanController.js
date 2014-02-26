@@ -249,7 +249,6 @@ var FloorPlanController = (function () {
 
     //receiving
     FloorPlanController.prototype.transitionSync = function(e) {}
-//
 //    FloorPlanController.prototype.transition0 = function() {
 //        state = "state1";
 //        
@@ -385,10 +384,7 @@ var FloorPlanController = (function () {
 
         for (var i = 0; i < this.view.objects.length; i++)
             new TWEEN.Tween(this.view.objects[i].position).to({x: 0}, 1000).easing(TWEEN.Easing.Exponential.Out).start();
-
-
     }
 
     return FloorPlanController;
-
 })();

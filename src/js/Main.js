@@ -20,7 +20,7 @@ var focusView = null;
 var syncConnection = new SyncConnectionSocketIO();
 syncConnection.startConnection();
 
-var ioTouch = new IOConnectorWinTouch();
+var ioTouch = new IOConnectorTouch();
 ioTouch.init();
 
 window.scene = new THREE.Scene();

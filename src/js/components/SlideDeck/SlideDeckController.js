@@ -33,12 +33,12 @@ var SlideDeckController = (function() {
                 [
                     {
                         type:"touchEnd",
-                        guard:(function() { return (this.slideId<5); }),
+                        guard:(function() { return (this.slideId<1); }),
                         transition:[SlideDeckController.prototype.transitionNextSlide],
                          newState:"state0"
                     },
                     {   type:"touchEnd",
-                        guard:(function() { console.log(this); return (this.slideId>=5); }),
+                        guard:(function() { console.log(this); return (this.slideId>=1); }),
                         transition:[SlideDeckController.prototype.transitionHide,
                             SlideDeckController.prototype.transitionToCoverflow],
                         newState:"pre"

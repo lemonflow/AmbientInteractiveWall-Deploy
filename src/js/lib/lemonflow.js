@@ -692,8 +692,8 @@ var OperatorStates = (function (_super) {
     };
 
     OperatorStates.prototype.processUserInput = function (e) {
-        console.log(this);
-        console.log("______processInput " + e.type);
+//        console.log(this);
+//        console.log("______processInput " + e.type);
         this.lastEvent = e;
         this.update();
     };
