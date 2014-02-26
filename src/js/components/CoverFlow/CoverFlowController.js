@@ -50,6 +50,14 @@ var CoverflowController = (function() {
                     },
 
                     {type:"touchEnd",
+                        guard:(function() {return (TouchDevice.currentY>600)}),
+                        transition:[
+                            CoverflowController.prototype.transitionHide,
+                            CoverflowController.prototype.transitionToFloorPlan
+                        ],
+                        newState:"pre"
+                    },
+                    {type:"touchEnd",
                         guard:(function() {return (TouchDevice.currentY<200)}),
                         transition:[
                             CoverflowController.prototype.transitionHide,
@@ -96,10 +104,14 @@ var CoverflowController = (function() {
         }
     }
 
+    CoverflowController.prototype.transitionToSlideDeck= function() {
+        FocusModel.instance.transferFocus(this,slideDeck.controller);
+        var obj = {data1:"transitionToSlideShow"};
+        syncConnection.stateChange(obj);
+    }
+
     CoverflowController.prototype.transitionToFloorPlan= function() {
         FocusModel.instance.transferFocus(this,floorPlan.controller);
-
-
         var obj = {data1:"transitionToSlideShow"};
         syncConnection.stateChange(obj);
     }
@@ -195,7 +207,7 @@ var CoverflowController = (function() {
             var obj = {data1:"transitionSwipe", data2:TouchDevice.currentXSmooth, data3:TouchDevice.currentY};
             syncConnection.stateChange(obj);
 
-            //local swiped
+            //local swipe
             this.view.camera.position.x = (clientid-50)*500+(1280-TouchDevice.currentXSmooth)+10;
             document.getElementById('debugtxt').textContent = "made "+this.view.camera.position.x;
         }.bind(this);
