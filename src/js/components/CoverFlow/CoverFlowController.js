@@ -112,6 +112,11 @@ var CoverflowController = (function() {
             return;
         }
 
+        if(obj.data1 == 'transitionSwipe') {
+            this.view.camera.position.x = (clientid-50)*1280+(1280-TouchDevice.currentX)+10;
+            return;
+        }
+
         this.slideId = obj.data1;
         this.transitionSync(new InputEvent(obj.data2));
 
@@ -185,7 +190,10 @@ var CoverflowController = (function() {
         console.log(TouchDevice.currentX);
         console.log(this.view.camera.position.x);
 
-        this.view.camera.position.x = (this.slideId*1000)+(1280-TouchDevice.currentX)+10;
+        this.view.camera.position.x = (clientid-50)*1280+(1280-TouchDevice.currentX)+10;
+        var obj = {data1:"transitionSwipe", data2:TouchDevice.currentX, data3:TouchDevice.currentY};
+        syncConnection.stateChange(obj);
+
 
 
 //        FocusModel.instance.syncConnection.stateChange(obj);
@@ -206,6 +214,9 @@ var CoverflowController = (function() {
     
         //go through slideshow triggered by other call
     CoverflowController.prototype.transitionSync = function(e) {
+
+        if(e.data1==)
+
         if(e.type =='prev') this.slideId--;
         if(e.type =='next') this.slideId++;
         
