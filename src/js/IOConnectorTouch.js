@@ -7,6 +7,9 @@ IOConnectorTouch = (function () {
     var lastTouchTime = 0;
     var currentTime = 0;
 
+    //tuning
+    var minPressDuration = 65;
+
 
 
     function IOConnectorTouch() {
@@ -126,7 +129,7 @@ IOConnectorTouch = (function () {
                 lastTouchTime = currentTime;
 
                 pressDuration = (currentTime - pressDownTime);
-                if(pressDuration>50) {
+                if(pressDuration>minPressDuration) {
                     InputManager.getInstance().routeFromInputDevice(new Event('touchSwipeEnd'));
                     InputManager.getInstance().routeFromInputDevice(new Event('touchEnd'));
                 }
