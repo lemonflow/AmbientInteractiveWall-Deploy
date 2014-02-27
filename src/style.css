@@ -36,10 +36,19 @@ a {
     text-align: center;
     visibility: hidden;
 }
-.debug {
+#debugtxt {
     
     text-align: center;
-    color: #565656;
+    color: #898989;
+    font-family: Helvetica;
+    font-size: 11px;
+    font-weight: normal;
+    text-align: center;
+}
+#debugtxt2 {
+
+    text-align: center;
+    color: #898989;
     font-family: Helvetica;
     font-size: 11px;
     font-weight: normal;
