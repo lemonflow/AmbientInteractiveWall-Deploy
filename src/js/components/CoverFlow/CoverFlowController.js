@@ -205,7 +205,7 @@ var CoverflowController = (function() {
         var f = function () {
             //inform others
             var obj = {data1:"transitionSwipe", data2:TouchDevice.currentXSmooth, data3:TouchDevice.currentY};
-            if(this.count++%5==0)
+//            if(this.count++%5==0)
                 syncConnection.stateChange(obj);
 
             //local swipe
@@ -216,8 +216,8 @@ var CoverflowController = (function() {
         this.count=0;
         TWEEN.removeAll();
         new TWEEN.Tween(TouchDevice)
-            .to({currentXSmooth:TouchDevice.currentX}, 450)
-            .easing(TWEEN.Easing.Quadratic.InOut)
+            .to({currentXSmooth:TouchDevice.currentX}, 200)
+            .easing(TWEEN.Easing.Linear)
             .onUpdate(f)
             .start();
     }
