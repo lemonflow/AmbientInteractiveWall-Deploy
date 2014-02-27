@@ -2,7 +2,7 @@ authtoken: hZNQsYGDUT4tpevFXkYs
 tunnels:
   uxcloud:
     proto:
-      http: 3000
+      http: 4567
   ssh:
     proto:
       tcp: 22
