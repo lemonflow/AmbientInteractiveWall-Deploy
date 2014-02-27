@@ -15,12 +15,7 @@ var uuid_ids = [];
 var uuid_map = {};
 var obj;
 
-var d = require('domain').create();
 process.on('uncaughtException', function(err) { console.log(err); process.exit(1);});
-d.on('error', function(err){ console.log(err);process.exit(1); });
-
-// catch the uncaught errors in this asynchronous or synchronous code block
-d.run(function(){
 
 //____________________________
 //brocker communication with all the nodes on all render clients
@@ -121,7 +116,3 @@ d.run(function(){
 
     app.listen(4567);
     console.log('update server listening on port 4567');
-
-
-
-});
