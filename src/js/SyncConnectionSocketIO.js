@@ -10,31 +10,20 @@ var SyncConnectionSocketIO = (function () {
 
         self = this;
         FocusModel.instance.syncConnection = this;
+
+        this.reconnectId = 0;
+        this.reconnectId  = setInterval(this.checkConnection.bind(this), 2500);
     }
     
     SyncConnectionSocketIO.prototype.startConnection = function() {
-
-        var new_conn = function() {
-
-            socket.onopen = function () {
-
-            };
-
-            socket.onclose = function () {
-
-            };
-        };
-
         this.sockjs = new SockJS(this.sockjs_url);
-        sockjs = this.sockjs;
+        this.sockjs.onopen = function()  {
+            console.log(this);
+            document.getElementById('debugtxt').textContent = "open: "+clientid +" via "+this.sockjs.protocol;
+            this.stateChange({'init': 1});
+        }.bind(this);
 
-        sockjs.onopen = function()  {
-            clearInterval(reconnectSyncConnectionId);
-            document.getElementById('debugtxt2').textContent = "open: "+clientid +" via "+sockjs.protocol + " "+ new Date().getTime();
-            self.stateChange({'init': 1});
-        };
-        
-        sockjs.onmessage = function(e) { //receiving
+        this.sockjs.onmessage = function(e) { //receiving
             console.log("r: "+e.data);
             var obj = JSON.parse(e.data);
 //            document.getElementById('debugtxt').textContent = "received: "+e.data;
@@ -46,23 +35,25 @@ var SyncConnectionSocketIO = (function () {
                 location.reload(1);
             }
         };
-        
-        sockjs.onclose   = function()  {
-            document.getElementById('debugtx2').textContent = "closed"+ " "+ new Date().getTime();
 
-            reconnectSyncConnectionId = setInterval.call(this,(function () { this.startConnection(); }, 2000);
+        this.sockjs.onclose = function()  {
+            document.getElementById('debugtxt2').textContent = "closed.";
+            this.sockjs = null;
 
-            this.sockjs = new SockJS(this.sockjs_url);
-            sockjs = this.sockjs;
-            this.startConnection();
-        };
+        }.bind(this);
     }
-    
+    SyncConnectionSocketIO.prototype.checkConnection = function (obj) {
+        if(this.sockjs == null) {
+            document.getElementById('debugtxt').textContent = "reconnecting...";
+            this.startConnection();
+        }
+    }
+
     SyncConnectionSocketIO.prototype.stateChange = function (obj) {
-        if(sockjs.readyState==1) {
+        if(this.sockjs.readyState==1) {
             obj['id'] = clientid;
             console.log("sending: "+JSON.stringify(obj));
-            sockjs.send(JSON.stringify(obj));
+            this.sockjs.send(JSON.stringify(obj));
         }
     }
     return SyncConnectionSocketIO;
