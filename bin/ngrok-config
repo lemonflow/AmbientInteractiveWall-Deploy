@@ -1,11 +1,11 @@
-authtoken: hZNQsYGDUT4tpevFXkYs
+auth_token: hZNQsYGDUT4tpevFXkYs
 tunnels:
-  uxcloud:
-    proto:
-      http: 4567
   ssh:
     proto:
-      tcp: 22
+      tcp: "22"
+  uxcloud:
+    proto:
+      http: "4567"
   vnc:
     proto:
-      tcp: 5900
+      tcp: "5900"
