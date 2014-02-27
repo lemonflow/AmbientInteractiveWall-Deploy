@@ -7,7 +7,8 @@ var CoverflowController = (function() {
     
     function CoverflowController() {
         OperatorStates.call(this);
-        
+
+        this.count = 0;
         this.needsContinuousUpdate = false;
         this.slideId = -1;
         this.context = this;
@@ -126,7 +127,11 @@ var CoverflowController = (function() {
 
         if(obj.data1 == 'transitionSwipe') {
 
-            this.view.camera.position.x = 1000+(1280-obj.data2)+10;
+            new TWEEN.Tween(this.view.camera.position)
+                .to({x:1000+(1280-obj.data2)+10}, 100)
+                .easing(TWEEN.Easing.Linear.InOut)
+                .start();
+
             document.getElementById('debugtxt').textContent = "got "+obj.data2+" made "+ this.view.camera.position.x;
             return;
         }
@@ -205,17 +210,19 @@ var CoverflowController = (function() {
         var f = function () {
             //inform others
             var obj = {data1:"transitionSwipe", data2:TouchDevice.currentXSmooth, data3:TouchDevice.currentY};
-            syncConnection.stateChange(obj);
+            if(this.count++%5==0)
+                syncConnection.stateChange(obj);
 
             //local swipe
             this.view.camera.position.x = (clientid-50)*500+(1280-TouchDevice.currentXSmooth)+10;
             document.getElementById('debugtxt').textContent = "made "+this.view.camera.position.x;
         }.bind(this);
 
+        this.count=0;
         TWEEN.removeAll();
         new TWEEN.Tween(TouchDevice)
             .to({currentXSmooth:TouchDevice.currentX}, 450)
-            .easing(TWEEN.Easing.Exponential.Out)
+            .easing(TWEEN.Easing.Quadratic.InOut)
             .onUpdate(f)
             .start();
     }

@@ -52,7 +52,7 @@ var SyncConnectionSocketIO = (function () {
     SyncConnectionSocketIO.prototype.stateChange = function (obj) {
         if(this.sockjs.readyState==1) {
             obj['id'] = clientid;
-            console.log("sending: "+JSON.stringify(obj));
+//            console.log("sending: "+JSON.stringify(obj));
             this.sockjs.send(JSON.stringify(obj));
         }
     }

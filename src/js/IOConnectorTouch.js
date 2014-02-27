@@ -96,7 +96,7 @@ IOConnectorTouch = (function () {
 
                 TouchDevice.currentTouches.splice(currentTouchIndex, 1, currentTouch);
 
-                document.getElementById('debugtxt').textContent = "move"+currentTouch.startX;
+//                document.getElementById('debugtxt').textContent = "move"+currentTouch.startX;
 
                 TouchDevice.currentX = touch.pageX;
                 TouchDevice.currentY = touch.pageY;
