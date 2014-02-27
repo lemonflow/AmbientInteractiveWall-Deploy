@@ -216,8 +216,8 @@ var CoverflowController = (function() {
         this.count=0;
         TWEEN.removeAll();
         new TWEEN.Tween(TouchDevice)
-            .to({currentXSmooth:TouchDevice.currentX}, 200)
-            .easing(TWEEN.Easing.Linear)
+            .to({currentXSmooth:TouchDevice.currentX}, 100)
+            .easing(TWEEN.Easing.Linear.None)
             .onUpdate(f)
             .start();
     }
