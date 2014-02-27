@@ -128,7 +128,7 @@ var CoverflowController = (function() {
         if(obj.data1 == 'transitionSwipe') {
 
             new TWEEN.Tween(this.view.camera.position)
-                .to({x:1000+(1280-obj.data2)+10}, 100)
+                .to({x:(1000+(1280-obj.data2)+10)}, 100)
                 .easing(TWEEN.Easing.Linear.InOut)
                 .start();
 
