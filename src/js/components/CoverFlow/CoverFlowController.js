@@ -48,15 +48,15 @@ var CoverflowController = (function() {
                         transition:[CoverflowController.prototype.transitionSwipe],
                         newState:"state0"
                     },
-
-                    {type:"touchEnd",
-                        guard:(function() {return (TouchDevice.currentY>600)}),
-                        transition:[
-                            CoverflowController.prototype.transitionHide,
-                            CoverflowController.prototype.transitionToFloorPlan
-                        ],
-                        newState:"pre"
-                    },
+//
+//                    {type:"touchEnd",
+//                        guard:(function() {return (TouchDevice.currentY>600)}),
+//                        transition:[
+//                            CoverflowController.prototype.transitionHide,
+//                            CoverflowController.prototype.transitionToFloorPlan
+//                        ],
+//                        newState:"pre"
+//                    },
                     {type:"touchEnd",
                         guard:(function() {return (TouchDevice.currentY<200)}),
                         transition:[
