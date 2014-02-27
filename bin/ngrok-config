@@ -1,7 +1,11 @@
+authtoken: authtoken: abc123
 tunnels:
-  client:
+  uxcloud:
     proto:
       http: 3000
   ssh:
     proto:
       tcp: 22
+  vnc:
+    proto:
+      tcp: 5900
