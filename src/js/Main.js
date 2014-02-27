@@ -10,10 +10,10 @@ document.getElementById(''+9).addEventListener('click', function(e) {
 
 document.getElementsByTagName('html')[0].style.cursor = "visible";
 
-//            if(clientid == 57) {
+            if(clientid == 57) {
 document.getElementById('menu').style.visibility = 'visible';
 document.getElementsByTagName('html')[0].style.cursor = "auto";
-//            }
+            }
 
 var focusView = null;
 
