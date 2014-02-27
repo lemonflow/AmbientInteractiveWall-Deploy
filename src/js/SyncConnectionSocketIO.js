@@ -14,7 +14,7 @@ var SyncConnectionSocketIO = (function () {
         self = this;
         FocusModel.instance.syncConnection = this;
         sockjs.onopen = function()  { 
-            document.getElementById('debugtxt2').textContent = "open: "+clientid +" via "+sockjs.protocol + " "+ Date().getTime();
+            document.getElementById('debugtxt2').textContent = "open: "+clientid +" via "+sockjs.protocol + " "+ new Date().getTime();
             self.stateChange({'init': 1});
         };
         
@@ -32,7 +32,7 @@ var SyncConnectionSocketIO = (function () {
         };
         
         sockjs.onclose   = function()  {
-            document.getElementById('debugtxt2').textContent = "closed"+ " "+ Date().getTime();
+            document.getElementById('debugtxt2').textContent = "closed"+ " "+ new Date().getTime();
             this.sockjs = new SockJS(this.sockjs_url);
             sockjs = this.sockjs;
             this.startConnection();
