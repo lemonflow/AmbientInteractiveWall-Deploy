@@ -7,7 +7,6 @@ var SyncConnectionSocketIO = (function () {
         this.sockjs_url = 'http://192.168.3.56:3000/echo';
 //        this.sockjs_url = 'http://127.0.0.1:3000/echo';
         this.sockjs = new SockJS(this.sockjs_url);
-        
         sockjs = this.sockjs;
     }
     
@@ -15,7 +14,7 @@ var SyncConnectionSocketIO = (function () {
         self = this;
         FocusModel.instance.syncConnection = this;
         sockjs.onopen = function()  { 
-            document.getElementById('debugtxt2').textContent = "open: "+clientid +" via "+sockjs.protocol;
+//            document.getElementById('debugtxt2').textContent = "open: "+clientid +" via "+sockjs.protocol;
             self.stateChange({'init': 1});
         };
         
@@ -34,6 +33,9 @@ var SyncConnectionSocketIO = (function () {
         
         sockjs.onclose   = function()  {
             document.getElementById('debugtxt2').textContent = "closed";
+            this.sockjs = new SockJS(this.sockjs_url);
+            sockjs = this.sockjs;
+            this.startConnection();
         };
     }
     
