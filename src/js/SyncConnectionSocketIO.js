@@ -19,7 +19,7 @@ var SyncConnectionSocketIO = (function () {
         this.sockjs = new SockJS(this.sockjs_url);
         this.sockjs.onopen = function()  {
             console.log(this);
-            document.getElementById('debugtxt').textContent = "open: "+clientid +" via "+this.sockjs.protocol;
+            document.getElementById('debugtxt2').textContent = "open: "+clientid +" via "+this.sockjs.protocol;
             this.stateChange({'init': 1});
         }.bind(this);
 
@@ -44,7 +44,7 @@ var SyncConnectionSocketIO = (function () {
     }
     SyncConnectionSocketIO.prototype.checkConnection = function (obj) {
         if(this.sockjs == null) {
-            document.getElementById('debugtxt').textContent = "reconnecting...";
+            document.getElementById('debugtxt2').textContent = "reconnecting...";
             this.startConnection();
         }
     }
