@@ -8,7 +8,7 @@ IOConnectorTouch = (function () {
     var currentTime = 0;
 
     //tuning
-    var minPressDuration = 150;
+    var minPressDuration = 90;
 
 
 
