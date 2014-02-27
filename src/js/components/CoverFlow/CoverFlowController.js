@@ -214,12 +214,15 @@ var CoverflowController = (function() {
         }.bind(this);
 
         this.count=0;
-        TWEEN.removeAll();
-        new TWEEN.Tween(TouchDevice)
-            .to({currentXSmooth:TouchDevice.currentX}, 100)
-            .easing(TWEEN.Easing.Linear.None)
-            .onUpdate(f)
-            .start();
+        TouchDevice.currentXSmooth = TouchDevice.currentX;
+        f();
+
+//        TWEEN.removeAll();
+//        new TWEEN.Tween(TouchDevice)
+//            .to({currentXSmooth:TouchDevice.currentX}, 450)
+//            .easing(TWEEN.Easing.Exponential.Out)
+//            .onUpdate(f)
+//            .start();
     }
 
     return CoverflowController;
