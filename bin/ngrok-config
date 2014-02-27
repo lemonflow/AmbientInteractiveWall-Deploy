@@ -1,0 +1,7 @@
+tunnels:
+  client:
+    proto:
+      http: 3000
+  ssh:
+    proto:
+      tcp: 22
