@@ -1,12 +1,12 @@
 auth_token: hZNQsYGDUT4tpevFXkYs
 tunnels:
   ssh:
-    remote_port:27322
+    remote_port: 51322
     proto:
       tcp: "22"
 
   vnc:
-    remote_port:27900
+    remote_port: 51900
     proto:
       tcp: "5900"
 
