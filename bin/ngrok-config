@@ -1,11 +1,18 @@
 auth_token: hZNQsYGDUT4tpevFXkYs
 tunnels:
   ssh:
+    remote_port:27322
     proto:
       tcp: "22"
-  uxcloud:
-    proto:
-      http: "4567"
+
   vnc:
+    remote_port:27900
     proto:
       tcp: "5900"
+
+
+  uxcloud:
+    subdomain: uxcloud
+    proto:
+      http: "4567"
+
