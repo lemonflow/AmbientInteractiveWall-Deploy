@@ -2,18 +2,34 @@ var SyncConnectionSocketIO = (function () {
     "use strict";
     var sockjs = null;
     var self = null;
+    var reconnectSyncConnectionId = 0;
     
     function SyncConnectionSocketIO() {
         this.sockjs_url = 'http://192.168.3.56:3000/echo';
 //        this.sockjs_url = 'http://127.0.0.1:3000/echo';
-        this.sockjs = new SockJS(this.sockjs_url);
-        sockjs = this.sockjs;
+
+        self = this;
+        FocusModel.instance.syncConnection = this;
     }
     
     SyncConnectionSocketIO.prototype.startConnection = function() {
-        self = this;
-        FocusModel.instance.syncConnection = this;
-        sockjs.onopen = function()  { 
+
+        var new_conn = function() {
+
+            socket.onopen = function () {
+
+            };
+
+            socket.onclose = function () {
+
+            };
+        };
+
+        this.sockjs = new SockJS(this.sockjs_url);
+        sockjs = this.sockjs;
+
+        sockjs.onopen = function()  {
+            clearInterval(reconnectSyncConnectionId);
             document.getElementById('debugtxt2').textContent = "open: "+clientid +" via "+sockjs.protocol + " "+ new Date().getTime();
             self.stateChange({'init': 1});
         };
@@ -32,7 +48,10 @@ var SyncConnectionSocketIO = (function () {
         };
         
         sockjs.onclose   = function()  {
-            document.getElementById('debugtxt2').textContent = "closed"+ " "+ new Date().getTime();
+            document.getElementById('debugtx2').textContent = "closed"+ " "+ new Date().getTime();
+
+            reconnectSyncConnectionId = setInterval.call(this,(function () { this.startConnection(); }, 2000);
+
             this.sockjs = new SockJS(this.sockjs_url);
             sockjs = this.sockjs;
             this.startConnection();

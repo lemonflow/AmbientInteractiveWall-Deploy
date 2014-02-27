@@ -9,7 +9,7 @@ var node_static = require('node-static');
 
 var sockjs_opts = {sockjs_url: "http://cdn.sockjs.org/sockjs-0.3.min.js"};
 
-var sockjs_echo = sockjs.createServer(sockjs_opts);
+
 
 var uuid_ids = [];
 var uuid_map = {};
@@ -19,6 +19,7 @@ process.on('uncaughtException', function(err) { console.log(err); process.exit(1
 
 //____________________________
 //brocker communication with all the nodes on all render clients
+    var sockjs_echo = sockjs.createServer(sockjs_opts);
     sockjs_echo.on('connection', function(conn) {
         conn.on('data', function(message) {
 //        console.log("receive: "+message);
@@ -94,7 +95,6 @@ process.on('uncaughtException', function(err) { console.log(err); process.exit(1
 //            console.log("sending: "+JSON.stringify(obj));
                 ws.write(JSON.stringify(obj));
             });
-
             next();
         };
     }
