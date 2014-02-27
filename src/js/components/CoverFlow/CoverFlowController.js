@@ -127,7 +127,7 @@ var CoverflowController = (function() {
 
         if(obj.data1 == 'transitionSwipe') {
             this.view.camera.position.x = 1000+(1280-obj.data2)+10;
-            document.getElementById('debugtxt').textContent = "got "+obj.data2+" made "+ this.view.camera.position.x;
+//            document.getElementById('debugtxt').textContent = "got "+obj.data2+" made "+ this.view.camera.position.x;
             return;
         }
 
